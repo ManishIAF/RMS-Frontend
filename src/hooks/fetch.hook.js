@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
 
-axios.defaults.baseURL = "https://64c0091efe8cab041a74cb9f--jovial-marigold-98285a.netlify.app/";
+axios.defaults.baseURL = "https://jovial-marigold-98285a.netlify.app";
 
 /*custom hook */
 
