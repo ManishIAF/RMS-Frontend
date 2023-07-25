@@ -1,0 +1,61 @@
+.professor-list {
+  display: flex;
+}
+
+.professor-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.professor-list li {
+  cursor: pointer;
+  padding: 8px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  margin-bottom: 4px;
+}
+
+.professor-list li.active {
+  background-color: #e0e0e0;
+}
+
+.professor-info {
+  padding: 16px;
+  border: 1px solid #ccc;
+  margin-left: 16px;
+}
+
+.line-container {
+  position: relative;
+  margin-top: 8px;
+}
+
+.line-start,
+.line-end {
+  position: absolute;
+  background-color: #ccc;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.line-start {
+  top: -4px;
+  left: -4px;
+}
+
+.line-end {
+  top: -4px;
+  right: -4px;
+}
+
+.line-connector {
+  position: absolute;
+  background-color: #ccc;
+  width: 3px;
+  top: -4px;
+  left: 2px;
+  bottom: -4px;
+  margin-left: 2px;
+}

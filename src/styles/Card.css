@@ -1,0 +1,195 @@
+/* Assuming this is your main CSS file or you can include this in a <style> tag in your component */
+
+/* Font Awesome CDN link */
+/* *,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #161623;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1em;
+}
+
+.card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  margin: 1em;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  backdrop-filter: blur(40px);
+  border: solid 2px transparent;
+  background-clip: padding-box;
+  box-shadow: 0px 10px 10px rgba(46, 54, 68, 0.03);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  .content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0.5;
+    transition: 0.5s;
+
+    .img {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 10px solid rgba(0, 0, 0, 0.25);
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .cardContent {
+      h3 {
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
+        font-size: 18px;
+        text-align: center;
+        margin: 20px 0 10px;
+        line-height: 1.1em;
+
+        span {
+          font-size: 12px;
+          font-weight: 300;
+          text-transform: initial;
+        }
+      }
+    }
+  }*/
+
+  /* .sci {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    li {
+      margin: 0 10px;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: 0.5s;
+      transition-delay: calc(0.1s * var(--i));
+
+      a {
+        font-size: 24px;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:hover .content {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+
+  &:hover .sci li {
+    transform: translateY(0px);
+    opacity: 1;
+  } */
+/* }  */
+
+ .Card{
+
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+    margin: 5px; 
+
+}
+
+.CardContainer{
+    margin: 2px;
+    height: 180px;
+    width: 160px;
+    font-size: 12px;
+    text-align: center;
+    box-shadow: 1px 1px 1px 1px rgba(69,98,155,0.12),0 -3px 6px 0 rgba(69,98,155,0.12);
+    border-radius: 0.5rem;
+    color: slategrey;
+    background-color: white;
+
+}
+
+.cardInfo{
+
+    margin-top: 15px;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    color: gray;
+
+} 
+
+/* .sci {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    li {
+      margin: 0 10px;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: 0.5s;
+      transition-delay: calc(0.1s * var(--i));
+
+    }
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:hover .content {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+
+  &:hover .sci li {
+    transform: translateY(0px);
+    opacity: 1;
+  } */
