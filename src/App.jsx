@@ -23,7 +23,6 @@ import ProfessorList from './pages/ProfessorList';
 import QRCODE from './pages/QRCode';
 import PasswordReset from './pages/PasswordReset';
 import StudentResult from './pages/StudentResult'
-import ScheduleExam from './pages/ExamSchedule';
 
 import List from './components/List'
 
@@ -70,7 +69,6 @@ const App = ()=>{
                     <Route path=':id' element={<EditResult/>} />
                   </Route>
                   <Route path='result' element={<IndividualResult/>}/>
-                  <Route path='examSchedule' element={<ScheduleExam/>} />
                 </Route>
                 
                 <Route path='*' element={<PageNotFound/>}/>
