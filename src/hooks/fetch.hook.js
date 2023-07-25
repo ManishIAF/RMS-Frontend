@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
 
-axios.defaults.baseURL = "https://rms-backend-d5a7.onrender.com";
+axios.defaults.baseURL = "https://rms-backend-9fo6.onrender.com";
 
 /*custom hook */
 
