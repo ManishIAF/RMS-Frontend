@@ -30,7 +30,7 @@ const App = ()=>{
 
     return(
 
-        <Router basename="/my-react-app">
+        <Router>
             <Routes>
                 
                 <Route path='/' element={<Login/>}/>
