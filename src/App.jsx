@@ -71,7 +71,7 @@ const App = ()=>{
                   <Route path='result' element={<IndividualResult/>}/>
                 </Route>
                 
-                <Route path='*' element={<PageNotFound/>}/>
+                {/* <Route path='*' element={<PageNotFound/>}/> */}
 
 
             </Routes>
