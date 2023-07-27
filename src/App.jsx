@@ -30,7 +30,7 @@ const App = ()=>{
 
     return(
 
-        <Router>
+        <Router basename="/my-react-app">
             <Routes>
                 
                 <Route path='/' element={<Login/>}/>
@@ -71,7 +71,7 @@ const App = ()=>{
                   <Route path='result' element={<IndividualResult/>}/>
                 </Route>
                 
-                {/* <Route path='*' element={<PageNotFound/>}/> */}
+                <Route path='*' element={<PageNotFound/>}/>
 
 
             </Routes>
