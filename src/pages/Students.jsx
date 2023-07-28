@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios';
+import '../styles/Card.css'
 import useFetch from '../hooks/fetch.hook';
 import Confirm from '../components/confirmation';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -57,7 +58,7 @@ function Students() {
       {openConfirmation?.userId&&
         <Confirm setConfirmation={setConfirmation} openConfirmation={openConfirmation} handleUserDelete={handleUserDelete} />
       }
-      {apiData && <div style={{marginTop:'10px'}}>
+      {apiData && <div style={{width:'100%',height:'10%',marginTop:'10px'}}>
         <div style={{float:'left'}}>
           <SearchBar SearchFunction={SearchFunction1}/>
         </div> 
@@ -82,13 +83,7 @@ function Students() {
 
       </div></div>}
 
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr 1fr 1fr',marginTop:'50px',
-                margin:'5px',
-                padding:'5px',
-                width: '99%',
-                height: '525px',
-                overflow: 'auto',
-            }}>
+      <div className='rapper'>
         {apiData?apiData?.map(
 
           (eachStudentData)=>{
