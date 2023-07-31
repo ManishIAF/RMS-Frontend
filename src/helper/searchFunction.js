@@ -6,9 +6,6 @@ const SearchFunction = ()=>{
      filter = input.value.toUpperCase();     
      table = document.getElementById("myTable");
      tr = table.getElementsByTagName("tr");
-console.log('input : ',input)
-console.log('table : ',table)
-console.log('tr : ',tr)
 
      // Loop through all table rows, and hide those who don't match the search query
      for (i = 0; i < tr.length; i++) {
@@ -27,25 +24,22 @@ console.log('tr : ',tr)
 
 
 function SearchFunction1() {
-    const input = document.getElementById("myInput");
-    const filter = input.value.toUpperCase();
-    const cardContainers = document.getElementsByClassName("Card");
-  
-    for (let i = 0; i < cardContainers.length; i++) {
-      const cardContainer = cardContainers[i];
-      const cardInfo = cardContainer.querySelector(".cardInfo");
-      const nameElement = cardInfo.querySelector("strong");
-  
-      if (nameElement) {
-        const txtValue = nameElement.textContent || nameElement.innerText;
-  
-        if (txtValue.toUpperCase().includes(filter)) {
-          cardContainer.style.display = "block"; // Show the card container
-        } else {
-          cardContainer.style.display = "none"; // Hide the card container
-        }
-      }
+  const searchTerm = document.getElementById('myInput').value.toLowerCase();
+  const cards = document.querySelectorAll('.rapper .container1');
+
+  for (const card of cards) {
+    const nameElement = card.querySelector('h3');
+    const name = nameElement.textContent.toLowerCase();
+
+    const rollNumberElement = card.querySelector('h6:nth-child(2)');
+    const rollNumber = rollNumberElement.textContent.toLowerCase();
+
+    if (name.includes(searchTerm) || rollNumber.includes(searchTerm)) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
     }
+  }
   }
   
 export {SearchFunction,SearchFunction1};

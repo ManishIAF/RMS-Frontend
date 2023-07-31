@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
 
-axios.defaults.baseURL = "https://rms-backend-h0w7.onrender.com";
-
-/*custom hook */
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 const useFetch = (query,options={}) => {
 

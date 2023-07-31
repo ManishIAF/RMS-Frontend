@@ -81,7 +81,7 @@ function Students() {
 
         />
 
-      </div></div>}
+      </div></div>}<br/>
 
       <div className='rapper'>
         {apiData?apiData?.map(
