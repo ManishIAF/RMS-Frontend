@@ -52,7 +52,7 @@ function TableRow({rowsData,handleDelete}) {
                 {
                   name:'Edit',
                   Icon:<AiOutlineEdit style={{width:'15px' , color:'green'}}/>,
-                  fun:()=>{Navigate(`/admin/editResult/${ResultId}`)}
+                  fun:()=>{Navigate('/admin/editResult',{state:{ResultId:ResultId}})}
                 },
                 {
                   name:'Delete',

@@ -1,6 +1,6 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Input from '@mui/material/Input';
-import { useParams,useNavigate } from 'react-router-dom';
+import {useLocation,useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import Alerting from '../components/Alert'
 
@@ -12,11 +12,21 @@ import axios from 'axios';
 const EditStudent = ()=> {
 
   const Navigate = useNavigate()
+  const location = useLocation()
+  const {state} = location
   const [alert,setAlert] = useState({});
-  const {id} = useParams();
-  const [{apiData}] = useFetch(`result/${id}`);
+  const [{apiData}] = useFetch(`result/${state?.ResultId}`,{skip:!state?.ResultId});
   const {register, handleSubmit,formState: { errors }} = useForm()
 
+
+  useEffect(()=>{
+    if(location.pathname === '/admin/editResult'){
+      if(!state?.ResultId){
+        return Navigate('../')
+      }
+    }
+  },[Navigate,location.pathname,state?.ResultId])
+  
   const onSubmit = (data) => {
 
     const {Internal,Theory,Practical} = data;
@@ -32,7 +42,7 @@ const EditStudent = ()=> {
 
     const token = localStorage.getItem('token');
     
-    axios.patch(`/api/result/${id}`,updatedData,
+    axios.patch(`/api/result/${state?.ResultId}`,updatedData,
       {
         "Content-Type":"application/json",
         withCredentials:true, 

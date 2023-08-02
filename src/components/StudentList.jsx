@@ -38,7 +38,6 @@ function StudentList({Params,setParams,students,rollNumber,setRollNumber,openSta
 
   }, [students, selectedSemester,Params.semester, setParams, studentData, setStudentData,setRollNumber]);
 
-console.log('studentData : ',studentData);
   return (
     <div style={{overflow:'auto',width:'100%'}}>
 

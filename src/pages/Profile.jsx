@@ -142,7 +142,7 @@ const onUpload = async e =>{
 }
 
   return (
-    <div style={{marginTop:'20px',width:'auto',height:'100%',overflow: 'auto'}}>
+    <div style={{width:'100%',height:'100%',overflow: 'auto'}}>
       {alert?.message&&<Alerting alert={alert}/>}
 
         <Accordion>
@@ -206,7 +206,7 @@ const onUpload = async e =>{
           </AccordionDetails>
         
         </Accordion>
-        <AllotedCourses />
+          <AllotedCourses style={{width:'100%'}} />
         <Accordion>
           
           <AccordionSummary

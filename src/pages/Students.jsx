@@ -58,12 +58,12 @@ function Students() {
       {openConfirmation?.userId&&
         <Confirm setConfirmation={setConfirmation} openConfirmation={openConfirmation} handleUserDelete={handleUserDelete} />
       }
-      {apiData && <div style={{width:'100%',height:'10%',marginTop:'10px'}}>
+      {apiData && <div style={{width:'100%',height:'10%'}}>
         <div style={{float:'left'}}>
           <SearchBar SearchFunction={SearchFunction1}/>
         </div> 
         
-        <div style={{float:"right",marginLeft:'750px'}}>
+        <div style={{float:"right"}}>
 
 
           <Select options = {[

@@ -10,43 +10,36 @@ import Image from '../components/Image'
 
 const StudentResult = ()=>{
 
-    const {state:{id,Semester}} = useLocation()
-    const [{apiData},setData,setParams] = useFetch('students/getone')
-    const [{apiData:result},/*setResultData*/,setResultParams] = useFetch('students/studentResult')
-    const [selectedSemester,setSelection]=useState(Semester)
-    // const {Data:result,Agregate} = resultData
-
-    useEffect(()=>{
-
-        if(id){
-
-            setParams({id:id})
-            setResultParams({id:id})
-        }
-
-        if(!id){
-
-            const token = localStorage.getItem('token');
-            console.log('without id called')
-            axios.get('/api/students/getone',{
-                "Content-Type":"Application/json",
-                withCredential:true,
-                headers:{
-                    "Authorization": `Bearer ${token}`
-                }
-            }).then((response)=>{
-
-                setData({apiData:response?.data})
-                
-            })
-
-        }
-
-        if(selectedSemester){
-            setResultParams((prevVal)=>{ return {...prevVal,semester:selectedSemester}})
-        }
-
-    },[setData,setParams,id,selectedSemester,setResultParams])
+    const { state: { id, Semester } } = useLocation();
+    const [{ apiData }, setData, setParams] = useFetch('students/getone');
+    const [{ apiData: result }, /*setResultData*/, setResultParams] = useFetch('students/studentResult');
+    const [selectedSemester, setSelection] = useState(Semester);
+    
+    useEffect(() => {
+      if (id) {
+        setParams({ id: id });
+        setResultParams({ id: id });
+      }
+    
+      if (!id) {
+        console.log('without id called');
+        const token = localStorage.getItem('token');
+        axios.get('/api/students/getone', {
+          "Content-Type": "application/json", 
+          withCredentials: true,
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        }).then((response) => {
+          setData({ apiData: response?.data });
+        });
+      }
+    
+      if (selectedSemester != null) {
+        setResultParams((prevVal) => { return { ...prevVal, semester: selectedSemester } });
+      }
+    }, [id, selectedSemester, setData, setParams, setResultParams]);
+    
 
 
     return (

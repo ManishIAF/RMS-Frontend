@@ -65,10 +65,10 @@ const Home = ()=> {
  
   
   return (
-    <div style={{marginTop:'10px',marginLeft:'5px',width:'auto',overflow:'auto'}}>
+    <div style={{marginLeft:'5px',width:'auto',overflow:'auto'}}>
       {alert?.message&&<Alerting alert={alert}/>}
       <div style={{display:'flex'}}>
-        <div style={{marginTop:'10px'}} >
+        <div style={{marginTop:'10px'}}>
           <h3><strong>Result List</strong></h3>
         </div>
         

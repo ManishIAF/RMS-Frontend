@@ -17,7 +17,7 @@ const Table = ({columns,rowsData,handleDelete})=>{
             
           <TableColumn columnData={columns}/>
           {rowsData?.length > 0 && <TableRow handleDelete={handleDelete} rowsData={rowsData} />}
-          <tfoot style={{position:'absolute',bottom:0,height:'50px',width:'1110px',backgroundColor:'white'}}>
+          <tfoot style={{position:'absolute',bottom:0,height:'50px',width:'1110px',backgroundColor:'#fff'}}>
           </tfoot>
 
         </table>

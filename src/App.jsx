@@ -40,25 +40,23 @@ const App = ()=>{
                 <Route path='admin' element={<AuthorizedRoute><SharedLayOut/></AuthorizedRoute>}>
 
                  <Route index element={<Home/>} />
-                 <Route path='StudentResult' element={<StudentResult/>}>
-                  <Route path=':id' element={<StudentResult/>} />
-                 </Route>
+                 <Route path='StudentResult' element={<StudentResult/>} />
+                  
                  <Route path='professorList' element={<ProfessorList/>} />
 
                  <Route path='profile' element={<Profile/>} />
 
-                 <Route path='studentProfile' element={<StudentProfile/>} >
-                    <Route path=':studentId' element={<StudentProfile/>} />
-                 </Route>
+                 <Route path='studentProfile' element={<StudentProfile/>} />
+                   
 
                   <Route path='students' element={<Students />}/>
                   <Route path='qrcode' element={<QRCODE/>}/>
 
                   <Route path='addStudent' element={<AddStudent/>}/>
-                  <Route path='editStudent/:studentId' element={<AddStudent/>} />
+                  <Route path='editStudent' element={<AddStudent/>} />
 
                   <Route path='addProfessor' element={<AddProfessor/>}/>
-                  <Route path='editProfessor/:profId' element={<AddProfessor/>} />
+                  <Route path='editProfessor' element={<AddProfessor/>} />
                   <Route path='passwordReset/:token' element={<PasswordReset/>} />
                    
                   <Route path='addResult' element={<AddResult/>}>
@@ -68,7 +66,7 @@ const App = ()=>{
                   <Route path='editResult' element={<EditResult/>}>
                     <Route path=':id' element={<EditResult/>} />
                   </Route>
-                  <Route path='result' element={<IndividualResult/>}/>
+                  <Route path='result' element={<StudentResult/>}/>
                 </Route>
                 
                 <Route path='*' element={<PageNotFound/>}/>

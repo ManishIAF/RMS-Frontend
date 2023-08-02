@@ -8,6 +8,7 @@ import Image from './Image'
 import Dot from './Dot';
 import {AiOutlineEdit} from 'react-icons/ai'
 // import VisibilityIcon from '@mui/icons-material/Visibility';
+import PersonIcon from '@mui/icons-material/Person';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ViewListIcon from '@mui/icons-material/ViewList';
@@ -32,9 +33,15 @@ const Card1 =({datum,Autherization,setConfirmation})=>{
             <h6>Semester : {Semester}</h6>
 
             <div className="size">
-              <div style={{cursor:'pointer',fontSize:'12px',borderRadius:'5px',backgroundColor:'#3772ff',width:'100px',height:'30px'}} onClick={()=>Navigate('/admin/studentprofile',{state:{Id:_id}})} >
-                <div style={{marginTop:'5px',color:'white'}}>view profile</div>
-              </div>
+              <span className='hover'>
+                <ToolTipComponent
+                  title='view Profile' 
+                  fun={()=>{
+                    Navigate('/admin/studentprofile',{state:{Id:_id}})
+                  }}
+                  content={<PersonIcon style={{fontSize:'16px',color:'white'}} />}
+                />
+              </span>
               {!status&&
                 <span className='hover'>
                   <ToolTipComponent
@@ -57,7 +64,7 @@ const Card1 =({datum,Autherization,setConfirmation})=>{
                     {
                       name:'Edit',
                       Icon:<AiOutlineEdit style={{width:'15px' , color:'green'}}/>,
-                      fun:()=>{Navigate(`/admin/editStudent/${_id}`)}
+                      fun:()=>{Navigate(`/admin/editStudent`,{state:{roll:Roll_Number}})}
                     },
                     {
                       name:'Delete',

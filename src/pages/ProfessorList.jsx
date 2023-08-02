@@ -112,7 +112,7 @@ function ProfessorList() {
     }
 
 return (
-    <div style={{display:'flex',width:'1150px',marginTop:'50px'}}>
+    <div style={{display:'flex',width:'100%',marginTop:'50px'}}>
 
         {alert?.message&&<Alert alert={alert}/>}
 
@@ -140,7 +140,7 @@ return (
                                         {
                                             name:'Edit',
                                             Icon:<AiOutlineEdit style={{width:'15px' , color:'green'}}/>,
-                                            fun:()=>{navigate(`/admin/editProfessor/${profData?._id}`)}
+                                            fun:()=>{navigate('/admin/editProfessor',{state:{id:profData?._id}})}
                                         },
                                         {
                                             name:'Add Course',

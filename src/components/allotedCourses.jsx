@@ -10,10 +10,9 @@ import useFetch from '../hooks/fetch.hook';
 export default function AllotedCourses({setOpenStatus,openStatus}) {
 
   const [{apiData}] = useFetch('professor/course')
-  // console.log('courseData : ',apiData);
 
   return (
-        <Accordion onClick={()=>setOpenStatus(!openStatus)} style={{width:'1180px'}}>
+        <Accordion style={{width:'100%'}}>
           
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

@@ -60,6 +60,16 @@ const routes = [
 
     },
 
+    {
+        path : '/admin/result',
+        name : 'Result',
+        accessLevel: ['standerd'],
+        show:'sidebar',
+        ICN : 107,
+        icon : <AssignmentIndIcon/>
+
+    },
+
 ]
 
 

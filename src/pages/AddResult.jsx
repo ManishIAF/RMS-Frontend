@@ -23,7 +23,7 @@ function AddResult() {
   const [{apiData},setData] = useFetch(`students/${rollNumber}`,{ skip: !rollNumber });
   const [{apiData:students},,setParams,Params] = useFetch('students');
   const [{apiData:allotedCourses}] = useFetch('professor/course')
-  const {control,register, handleSubmit,reset,setValue /*, formState: { errors }*/} = useForm();
+  const {control,register, handleSubmit,reset,setValue} = useForm();
   const [openStatus,setOpenStatus] = useState(false);
   const [alert,setAlert] = useState({});
 
@@ -33,7 +33,6 @@ function AddResult() {
 
   }
 
-  console.log('allotedCourses : ',allotedCourses?.length);
 
   useEffect(() => {
 
@@ -42,9 +41,7 @@ function AddResult() {
       setValue('SubjectId',allotedCourses&&allotedCourses[0]?._id)
 
     }
-    // if(!allotedCourses){
-    //   setValue('SubjectId',undefined)
-    // }
+
     if(rollNumber){
       setValue('Roll_Number',rollNumber)
     }
@@ -129,11 +126,11 @@ function AddResult() {
     <div style={{overflow:'auto',width:'100%',alignContent:'center'}}>
       {alert?.message&&<Alerting alert={alert}/>}
       
-      <div style={{display:'flex',marginTop:'2px',gap:'10px'}}>
+      <div onClick={()=>setOpenStatus(!openStatus)}>
         <AllotedCourses openStatus={openStatus} setOpenStatus={setOpenStatus}/>
       </div>
 
-      <div style={{display:'flex',float:'left',marginLeft:!state?.roll&&students?'50px':'350px',justifyContent:'center',marginTop:'20px'}}>
+      <div style={{display:'flex',marginLeft:!state?.roll&&students&&'50px',justifyContent:'center'}}>
         <div style={{transition:'0.2s',marginTop:openStatus?'50px':'100px'}}>
           {apiData?.firstName&&<div><Grow in={true} style={{ transformOrigin: '0 0 0' }} {...(true ? { timeout: 500 } : {})}>
   
@@ -207,7 +204,7 @@ function AddResult() {
         </div>
         </div>
 
-        {!state?.roll&&students&&<div style={{marginLeft:'50px'}}>
+        {!state?.roll&&students&&<div style={{marginTop:'10px',marginLeft:'100px'}}>
             <StudentList Params={Params} setParams={setParams} openStatus={openStatus} students={students} rollNumber={rollNumber} setRollNumber={setRollNumber}/>
         </div>}
 
