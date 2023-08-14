@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
 
-axios.defaults.baseURL = /*process.env.REACT_APP_SERVER_DOMAIN||*/'http://localhost:8000';
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 axios.defaults.withCredentials = true
 /*custom hook */
 
