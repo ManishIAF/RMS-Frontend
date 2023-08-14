@@ -64,12 +64,12 @@ function Navbar({apiData}) {
           
             <MenuItem onClick={handleCloseUserMenu}>
                 <Typography style={{display:'flex'}} onClick={handleLogOut} textAlign="center">
-                  <LogoutOutlinedIcon style={{color:'blue',marginRight:'2px',fontSize:'20px'}}/> <p>LogOut</p>
+                  <LogoutOutlinedIcon style={{color:'blue',marginRight:'2px',fontSize:'20px'}}/> LogOut
                 </Typography>
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>
                 <Typography style={{display:'flex'}} onClick={()=>Navigate('/admin/profile')} textAlign="center"> 
-                  <PermIdentityOutlinedIcon style={{color:'blue',marginRight:'2px',fontSize:'20px'}} /><p>Profile</p>
+                  <PermIdentityOutlinedIcon style={{color:'blue',marginRight:'2px',fontSize:'20px'}} />Profile
                 </Typography>
             </MenuItem>
           

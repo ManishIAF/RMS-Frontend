@@ -4,7 +4,7 @@ import useFetch from '../hooks/fetch.hook';
 import convertToBase64 from '../helper/convert';
 import axios from 'axios';
 import Alert from '../components/Alert'
-import {InputLabel,OutlinedInput,FormControl} from '@mui/material';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ToolTipComponent from '../components/ToolTipComponent';
 import Image from '../components/Image';
@@ -18,7 +18,7 @@ function AddStudent() {
   const [{apiData}]=useFetch(`students/${state?.roll}`,{skip:!state?.roll})
   const {register, handleSubmit,setValue} = useForm()
   const [alert,setAlert] = useState({});
-  
+
   useEffect(() => {
     
     if(location.pathname === '/admin/editStudent'){
@@ -31,13 +31,13 @@ function AddStudent() {
 
     }
 
-    if (apiData) {
-      setValue('firstName', apiData.firstName);
-      setValue('lastName', apiData.lastName);
-      setValue('email', apiData.email);
-      setValue('Roll_Number', apiData.Roll_Number);
-      setValue('Registration_Number', apiData.Regitration_Number);
-    }
+    // if (apiData) {
+    //   setValue('firstName', apiData.firstName);
+    //   setValue('lastName', apiData.lastName);
+    //   setValue('email', apiData.email);
+    //   setValue('Roll_Number', apiData.Roll_Number);
+    //   setValue('Registration_Number', apiData.Regitration_Number);
+    // }
   
   }, [apiData, setValue,location.pathname,state?.roll,Navigate]);
 
@@ -152,29 +152,11 @@ function AddStudent() {
             </div><br />
             <div style={{display:'flex'}}>
               <div>
-                <FormControl>
-                  <InputLabel>First Name</InputLabel>
-                  <OutlinedInput 
-                    id="outlined-adornment-amount"
-                    type='text' 
-                    {...register('firstName',{required:true})} 
-                    disabled={false} 
-                    label="First Name"
-                  />
-                </FormControl>
+                <TextField id="outlined-basic" {...register('firstName',{required:true})} defaultValue={apiData?.firstName} label="First Name" variant="outlined" />
               </div>
 
               <div style={{marginLeft:'20px'}}>
-                <FormControl>
-                  <InputLabel>Last Name</InputLabel>
-                  <OutlinedInput 
-                    id="outlined-adornment-amount"
-                    type='text' 
-                    {...register('lastName',{required:true})} 
-                    disabled={false} 
-                    label="Last Name"
-                  />
-                </FormControl>
+              <TextField id="outlined-basic" {...register('lastName',{required:true})} defaultValue={apiData?.lastName} label="Last Name" variant="outlined" />
               </div>
             </div>
           </div><br />
@@ -182,29 +164,11 @@ function AddStudent() {
           <div style={{display:'flex'}}>
               
               <div>
-                <FormControl>
-                  <InputLabel>Roll Number</InputLabel>
-                  <OutlinedInput 
-                    id="outlined-adornment-amount"
-                    type='number' 
-                    {...register('Roll_Number',{required:true})} 
-                    disabled={false} 
-                    label="Roll Number"
-                  />
-                </FormControl>
+                <TextField type='number' id="outlined-basic" {...register('Roll_Number',{required:true})} defaultValue={apiData?.Roll_Number} label="Roll Number" variant="outlined" />
               </div>
             
               <div style={{marginLeft:'20px'}}>
-                <FormControl>
-                  <InputLabel>Registration Number</InputLabel>
-                  <OutlinedInput 
-                    id="outlined-adornment-amount"
-                    type='number' 
-                    {...register('Registration_Number',{required:true})} 
-                    disabled={false} 
-                    label="Registration Number"
-                  />
-                </FormControl>
+                <TextField type='number' id="outlined-basic" {...register('Registration_Number',{required:true})} defaultValue={apiData?.Registration_Number} label="Registration Number" variant="outlined" />
               </div>
 
           </div>
@@ -212,16 +176,7 @@ function AddStudent() {
           <div style={{marginTop:'20px'}}>
 
             <div>
-              <FormControl fullWidth>
-                <InputLabel>E-mail</InputLabel>
-                <OutlinedInput 
-                  id="outlined-adornment-amount"
-                  type='email' 
-                  {...register('email',{required:true})} 
-                  disabled={false} 
-                  label="E-mail"
-                />
-              </FormControl>
+              <TextField fullWidth id="outlined-basic" {...register('email',{required:true})} defaultValue={apiData?.email} label="E-mail" variant="outlined" />
             </div>
             {!apiData?
               <Button type='submit' onClick={handleSubmit(addStudent)} style={{height:'50px',width:'100%',marginTop:'20px'}} variant="contained" size="small">

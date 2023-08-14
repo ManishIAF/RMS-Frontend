@@ -5,14 +5,11 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import useFetch from '../hooks/fetch.hook';
 
-export default function AllotedCourses({setOpenStatus,openStatus}) {
-
-  const [{apiData}] = useFetch('professor/course')
+export default function AllotedCourses({Data,openStatus,setOpenStatus}) {
 
   return (
-        <Accordion style={{width:'100%'}}>
+        <Accordion style={{width:'100%'}} onClick={()=>setOpenStatus(!openStatus)}>
           
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -21,14 +18,14 @@ export default function AllotedCourses({setOpenStatus,openStatus}) {
           >
             
             <Typography>
-              <strong style={{color:apiData?'green':'red'}}>ALLOTED SUBJECTS</strong>
+              <strong style={{color:Data?'green':'red'}}>ALLOTED SUBJECTS</strong>
             </Typography>
         
           </AccordionSummary>
         
           <AccordionDetails style={{display:'flex'}}>
               
-            {apiData&&apiData?.map(({_id,Semester,department,subject})=>(
+            {Data&&Data?.map(({_id,Semester,department,subject})=>(
               <div key={_id} style={{marginLeft:'20px'}}>
               
                 <Typography>
@@ -45,7 +42,7 @@ export default function AllotedCourses({setOpenStatus,openStatus}) {
               
               </div>
             ))}
-            {!apiData && <div>
+            {!Data && <div>
                 <Typography style={{color:'green'}}>  
                   <small><strong> There is no subject alloted to you...! Please contect HOD for it.</strong></small>
                 </Typography>

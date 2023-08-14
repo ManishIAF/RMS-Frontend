@@ -4,7 +4,6 @@ import '../styles/pageFormat.css'
 import Sidebar from '../components/SideBar';
 import Navbar from '../components/NavBar';
 import { Outlet } from 'react-router-dom';
-// import useFetch from '../hooks/fetch.hook';
 
 const SharedLayOut = ({Autherization})=> {
 
@@ -19,7 +18,7 @@ const SharedLayOut = ({Autherization})=> {
             
             <div className='Navbar'>
                 <Navbar apiData={Autherization} />              
-            </div><br />
+            </div>
             
             <div className='MainContent' >
                 <Outlet />

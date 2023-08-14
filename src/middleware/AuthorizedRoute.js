@@ -7,58 +7,67 @@ const AuthorizedRoute = ({children})=>{
     const navigate = useNavigate();
     const location = useLocation();
     const [Autherization,setAutherization] = useState(null)
-    const token = localStorage.getItem('token');
     const currentRoute = location.pathname;
 
 
     useEffect(()=>{
-
-        if(!token) {return navigate('/', { replace: true });}
-
-        if(token){
-            
-            axios.get('/api/authenticate',{
+        
+        let isMounted = true;
+        
+        const authenticate = async()=>{
+            try {
+                
+                const {data,status} = await axios.get('/api/authenticate',{
                     "Content-Type":"application/json",
                     withCredentials:true,
-                    headers:{
-                    "Authorization" : `Bearer ${token}`
-                },
+                })
 
-            }).then((response)=>{
-            
-                    if(response.status === 200){
-                        const al = routes?.find(({path,accessLevel})=>{return path === currentRoute && accessLevel})
+                if(isMounted){  
+                    if(status === 200){
 
-                        if(al){
-                            if(al?.accessLevel?.includes(response?.data?.auth)){
-
-                                setAutherization(response?.data)
+                        if(data?.auth){
+                            localStorage.setItem('token', data?.token);
+                            const al = routes?.find(({path,accessLevel})=>{return path === currentRoute && accessLevel})
                             
+                            if(al){
+                     
+                                if(al?.accessLevel?.includes(data?.auth)){
+        
+                                    setAutherization(data)
+                                
+                                }
+                     
+                                if(!al?.accessLevel?.includes(data?.auth)){
+        
+                                    return navigate('/403', { replace: true });
+                                
+                                }
+                     
                             }
-                            if(!al?.accessLevel?.includes(response?.data?.auth)){
-
-                                return navigate('./', { replace: true });
-                            
+                            if(!al){
+                                setAutherization(data)
                             }
+                            setAutherization(data)
                         }
-                        if(!al){
-                            setAutherization(response?.data)
-                        }
-                        setAutherization(response?.data)
                     }
-                
-                }
-            )
-            .catch((error) => { 
-                
-                    if(error.response.status === 401){ 
-                        localStorage.removeItem('token');
-                        return navigate('/', { replace: true });
-                    }                
-                }
-            )
+                }              
+                    
+
+            } catch (error) {
+                console.log('error : ',error.response.status);
+                if(error?.response?.status === 401){ 
+                    localStorage.removeItem('token');
+                    return navigate('/', { replace: true });
+                }  
+            }
         }
-    },[token,navigate,currentRoute])
+
+        authenticate()
+        return () => {
+            isMounted = false;
+        };
+
+    },[navigate,currentRoute])
     
     return Autherization&&React.cloneElement(children, { Autherization });
 } 

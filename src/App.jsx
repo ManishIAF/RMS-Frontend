@@ -15,7 +15,7 @@ import Home from './pages/Home'
 import EditResult from './pages/EditResult'
 import AddResult from './pages/AddResult'
 import Students from './pages/Students';
-import IndividualResult from './pages/IndividualResult'
+// import IndividualResult from './pages/IndividualResult'
 import AddStudent from './pages/AddStudent';
 import AddProfessor from './pages/AddProfessor';
 import StudentProfile from './pages/StudentProfile';
@@ -59,14 +59,11 @@ const App = ()=>{
                   <Route path='editProfessor' element={<AddProfessor/>} />
                   <Route path='passwordReset/:token' element={<PasswordReset/>} />
                    
-                  <Route path='addResult' element={<AddResult/>}>
-                    <Route path=':roll'/>
-                  </Route>
+                  <Route path='addResult' element={<AddResult/>} />
                   <Route path='list' element={<List/>} />
-                  <Route path='editResult' element={<EditResult/>}>
-                    <Route path=':id' element={<EditResult/>} />
-                  </Route>
+                  <Route path='editResult' element={<EditResult/>} />
                   <Route path='result' element={<StudentResult/>}/>
+                  <Route path='403' element={<PageNotFound/>}/>
                 </Route>
                 
                 <Route path='*' element={<PageNotFound/>}/>

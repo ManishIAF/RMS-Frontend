@@ -15,13 +15,14 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 
 
 const Card1 =({datum,Autherization,setConfirmation})=>{
+
   const Navigate = useNavigate()
   const {_id,profile,firstName,lastName,Roll_Number,department,Semester,status} = datum;
 
   return (
   
     <div className="container1">
-      <Dot vertical='top' horizontal={Autherization?.auth === 'high'?'left':'right'} color={status}>
+      <Dot vertical='top' horizontal={Autherization === 'high'?'left':'right'} color={status}>
         <div className="card">
           <div className="imgBx">
             <Image Image={profile} alt='student' width='50px'/>
@@ -53,7 +54,7 @@ const Card1 =({datum,Autherization,setConfirmation})=>{
                   />
                 </span>
               }
-              {Autherization?.auth === 'high'&&
+              {Autherization === 'high'&&
                 <span className='hover'>
                   <MoreButton onClick={(event)=>event.stopPropagation()} title='More' Icon={<MoreHorizIcon style={{fontSize:'16px',color:'white'}} />} options={[
                     {

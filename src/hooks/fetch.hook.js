@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
 
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
+axios.defaults.baseURL = /*process.env.REACT_APP_SERVER_DOMAIN||*/'http://localhost:8000';
+axios.defaults.withCredentials = true
+/*custom hook */
 
 const useFetch = (query,options={}) => {
 
@@ -31,21 +33,21 @@ const useFetch = (query,options={}) => {
                        "Authorization" : `Bearer ${token}`
                    },
 
-                   });
+                });
                    
-                   if(isMounted){
+                if(isMounted){
 
-                        if(status === 200){
+                    if(status === 200){
 
-                            setData(prev => ({...prev,isLoading:false,apiData:data,status:status}));
-        
-                        }else if(status !== 200){
-        
-                            setData(prev => ({...prev,isLoading:true}))
+                        setData(prev => ({...prev,isLoading:false,apiData:data,status:status}));
     
-                        }
+                    }else if(status !== 200){
+    
+                        setData(prev => ({...prev,isLoading:true}))
 
-                   }
+                    }
+
+                }
                 
             } catch (error) {
                 if(isMounted){

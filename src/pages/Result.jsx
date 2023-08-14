@@ -1,26 +1,26 @@
-import React from 'react'
-import ResultList from "../components/Table"
+// import React from 'react'
+// import ResultList from "../components/Table"
 
-import { useParams } from 'react-router-dom'; 
+// import { useParams } from 'react-router-dom'; 
 
-import {useResultContext} from '../contexts/ResultContext'
+// import {useResultContext} from '../contexts/ResultContext'
 
-function Result() {
+// function Result() {
 
-  const {semester} = useParams()
+//   const {semester} = useParams()
 
-  const {Data,setSemester} = useResultContext()
+//   const {Data,setSemester} = useResultContext()
   
   
-  if(semester){setSemester(semester)}
+//   if(semester){setSemester(semester)}
 
-  return (
+//   return (
 
-    <div style={{display:'flex',justifyContent:'center',width:'100%'}}>
-            <ResultList column={['Images','Name','Roll_Number','Semester','Subject','Marks','Edit']} rows={Data}/>
-        </div>
+//     <div style={{display:'flex',justifyContent:'center',width:'100%'}}>
+//         <ResultList column={['Images','Name','Roll_Number','Semester','Subject','Marks','Edit']} rows={Data}/>
+//     </div>
 
-  )
-}
+//   )
+// }
 
-export default Result;
+// export default Result;

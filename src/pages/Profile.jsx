@@ -28,6 +28,7 @@ function Profile() {
   const [alert,setAlert] = useState({});
   const {register, handleSubmit/*, formState: { errors }*/} = useForm()
 
+  console.log('apiData : ',apiData)
 
   const onSubmit = (data,event) => {
 
@@ -45,7 +46,6 @@ function Profile() {
       District:District,
       Mobile:Number(Mobile),
 
-
     }
 
     const token = localStorage.getItem('token');
@@ -61,11 +61,11 @@ function Profile() {
       }
     )
   .then((response)=>{
-
+    
+      setParams({})
       setAlert({message:response.data,variant:'success'})
 
     }).catch((error)=>{
-
 
       setAlert({message:error.response.data,variant:'info'})
   
@@ -75,6 +75,8 @@ function Profile() {
   }
 
   const onEdit = (data,event)=>{
+
+    event.preventDefault();
 
     const {Street,City,State,pinCode,District,Mobile} = data;
     
@@ -119,8 +121,6 @@ function Profile() {
       setParams({})
 
       setAlert({message:response.data,variant:'success'})
-
-      event.preventDefault();
 
     }).catch((error)=>{
 
@@ -195,18 +195,34 @@ const onUpload = async e =>{
             <div style={{display:'flex'}}>
               
               <div>
-              
+
                 <Typography>
                   Department : {apiData?.department}
                 </Typography>
+
+                {apiData?.Roll_Number&&<Typography>  
+                  Roll Number : {apiData?.Roll_Number}
+                </Typography>}
             
+              </div>
+
+              <div style={{marginLeft:'80px'}}>
+
+                {apiData?.Registration_Number&&<Typography>
+                  Registration Number : {apiData?.Registration_Number}
+                </Typography>}
+
+                {apiData?.Semester&&<Typography>
+                  Semester : {apiData?.Semester}
+                </Typography>}
+
               </div>
             
             </div>
           </AccordionDetails>
         
         </Accordion>
-          <AllotedCourses style={{width:'100%'}} />
+          {apiData?.courses&&<AllotedCourses Data={apiData?.courses} style={{width:'100%'}} />}
         <Accordion>
           
           <AccordionSummary
@@ -227,9 +243,9 @@ const onUpload = async e =>{
               <div>
 
                   <div>
-                  {!apiData?.contect||edit?<form onSubmit={handleSubmit(onSubmit)}>
+                  {!apiData?.contact||edit?<form>
                       
-                      {apiData&&<div>
+                      <div>
                         
                         <div style={{display:'flex'}}>
                           <TextField type='text' style={{width:'795px'}} {...register('Street',{required:true,maxLength:100})} id="standard-basic" defaultValue={apiData?.contect?.address?.Street} label="Street" variant="standard" />
@@ -242,12 +258,12 @@ const onUpload = async e =>{
                             <TextField type='number' style={{marginLeft:'30px'}} {...register('pinCode',{required:true,maxLength:6})} defaultValue={apiData?.contect?.address?.pinCode} id="standard-basic" label="Pin Code" variant="standard" />
                             <TextField type='text' style={{marginLeft:'30px'}} {...register('District',{required:true,maxLength:50})} defaultValue={apiData?.contect?.address?.District} id="standard-basic" label="District" variant="standard" />
                             <TextField type='number' style={{marginLeft:'30px'}} {...register('Mobile',{required:true,maxLength:10})} id="standard-basic" defaultValue={apiData?.contect?.Mobile} label="Phone Number" variant="standard" />
-                            {!edit?<Button type='submit' style={{marginLeft:'30px',marginTop:'10px'}} variant="contained">Add Info</Button>:
-                            <Button type='submit' onClick={handleSubmit(onEdit)} style={{marginLeft:'30px',marginTop:'10px'}} variant="contained">Edit Info</Button>}
+                            {!apiData?.contact&&<Button type='submit' onClick={handleSubmit(onSubmit)} style={{marginLeft:'30px',marginTop:'10px'}} variant="contained">Add Info</Button>}
+                            {apiData?.contact&&<Button type='submit' onClick={handleSubmit(onEdit)} style={{marginLeft:'30px',marginTop:'10px'}} variant="contained">Edit Info</Button>}
 
                         </div>
                       
-                      </div>}
+                      </div>
                       
                     </form>
                     :
@@ -255,27 +271,27 @@ const onUpload = async e =>{
 
                       <div style={{display:'flex'}}>
                         <Typography style={{color:'gray'}}>
-                          <strong>{apiData?.contect?.address?.Street}</strong>
+                          <strong>{apiData?.contact?.address?.Street}</strong>
                         </Typography>
                         <Typography style={{marginLeft:'30px',color:'gray'}}>
-                          <strong>{apiData?.contect?.address?.City}</strong>
+                          <strong>{apiData?.contact?.address?.City}</strong>
                         </Typography>
-                        {apiData?.contect&&<IconButton title='edit info' style={{display:'flex',float:'right',marginLeft:'20px'}} onClick={()=>setEdit(true)} color="primary" aria-label="add to shopping cart">
+                        {apiData?.contact&&<IconButton title='edit info' style={{display:'flex',float:'right',marginLeft:'20px'}} onClick={()=>setEdit(true)} color="primary" aria-label="add to shopping cart">
                           <EditIcon style={{fontSize:'18px'}} />
                         </IconButton>}
                       </div>
                       <div style={{display:'flex'}}>
                         <Typography style={{color:'gray'}}>
-                          <strong>{apiData?.contect?.address?.State}</strong>
+                          <strong>{apiData?.contact?.address?.State}</strong>
                         </Typography>
                         <Typography style={{marginLeft:'30px',color:'gray'}}>
-                          <strong>{apiData?.contect?.address?.pinCode}</strong>
+                          <strong>{apiData?.contact?.address?.pinCode}</strong>
                         </Typography>
                         <Typography style={{marginLeft:'30px',color:'gray'}}>
-                          <strong>{apiData?.contect?.address?.District}</strong>
+                          <strong>{apiData?.contact?.address?.District}</strong>
                         </Typography>
                         <Typography style={{marginLeft:'30px',color:'gray'}}>
-                          <strong>{apiData?.contect?.Mobile}</strong>
+                          <strong>{apiData?.contact?.Mobile}</strong>
                         </Typography>
                       </div>
 

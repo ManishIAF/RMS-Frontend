@@ -49,7 +49,6 @@ function Login() {
     axios.post('/api/veryfyUser',{username}).then((response)=>{
 
       if(response?.status === 200){
-
         setUser({username:response?.data?.username,firstName:response?.data?.firstName,profile:response?.data?.profile})
         setAlert({message:response?.data.msg,variant:"success"})
         
@@ -69,7 +68,7 @@ function Login() {
     axios.post('/api/login',{username:user?.username,password:data?.password}).then((response)=>{
 
       if(response?.status === 200){
-
+        // console.log('response : ',response.data.token);
         localStorage.setItem('token', response?.data?.token);
         setAlert({message:response?.data.msg,variant:"success"})        
         setTimeout(() => {
@@ -79,6 +78,7 @@ function Login() {
 
     }).catch((error)=>{
 
+      // console.log('error?.response?.data : ',error?.response?.data)
       setAlert({message:error?.response?.data,variant:"info"})
       
 
@@ -92,16 +92,12 @@ function Login() {
 
           <div style={{height:'30px'}}>
                       
-            {!user?.pass?
-
-              <Alert style={{display:'flex',justifyContent:'center',background:'none'}}>
-                {(user?.firstName||user?.username)&&<strong>{'Hello ' + user?.firstName||user?.username} </strong>}
-              </Alert>:
-              <Alert style={{display:'flex',justifyContent:'center',background:'none'}}>
+              {(user?.firstName||user?.username)&&<Alert style={{display:'flex',justifyContent:'center',background:'none'}}>
+                <strong>{'Hello ' + user?.firstName||user?.username} </strong>
+              </Alert>}
+              {user?.pass&&<Alert style={{display:'flex',justifyContent:'center',background:'none'}}>
                 <strong>{user?.pass}</strong>
-              </Alert>
-
-            }
+              </Alert>}
 
           </div>
 

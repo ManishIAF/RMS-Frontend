@@ -15,8 +15,7 @@ function Students() {
 
   const [selectedSemester,setSelection]=useState('All')
   const [openConfirmation,setConfirmation] = useState({username:null,userId:null})
-  const [{apiData},,setParams] = useFetch(`students`);
-  const [{apiData:authCheck}] = useFetch(`authenticate`);
+  const [{apiData},,setParams,Params] = useFetch(`students`);
   const [alert,setAlert] = useState({});
 
   const handleUserDelete = (event)=>{
@@ -45,26 +44,30 @@ function Students() {
   }
 
   useEffect(() => {
-    if(selectedSemester !== 'All'){
-      setParams({semester:selectedSemester})
-    }else if(selectedSemester === 'All'){
-      setParams({semester:undefined})
+    if (selectedSemester !== 'All') {
+      if (selectedSemester !== Params.semester) {
+        setParams({ semester: selectedSemester });
+      }
+    } else {
+      if (Params.semester !== undefined) {
+        setParams({ semester: undefined });
+      }
     }
-  },[selectedSemester,setParams]);
+  },[selectedSemester,setParams,Params.semester]);
 
   return (
-    <div style={{width:'100%'}}>     
+    <div style={{width:'100%',marginTop:'20px'}}>     
      {alert?.message&&<Alert alert={alert}/>}
       {openConfirmation?.userId&&
         <Confirm setConfirmation={setConfirmation} openConfirmation={openConfirmation} handleUserDelete={handleUserDelete} />
       }
-      {apiData && <div style={{width:'100%',height:'10%'}}>
+      {apiData?.studentData && <div style={{width:'100%',height:'7%'}}>
+
         <div style={{float:'left'}}>
           <SearchBar SearchFunction={SearchFunction1}/>
         </div> 
         
         <div style={{float:"right"}}>
-
 
           <Select options = {[
             
@@ -84,14 +87,14 @@ function Students() {
       </div></div>}<br/>
 
       <div className='rapper'>
-        {apiData?apiData?.map(
+        {apiData?apiData?.studentData?.map(
 
           (eachStudentData)=>{
 
             return( 
               
               <div key={eachStudentData._id}>
-                <Card setConfirmation={setConfirmation} Autherization={authCheck} datum={eachStudentData}/>
+                <Card setConfirmation={setConfirmation} Autherization={apiData?.auth} datum={eachStudentData}/>
               </div>
               
                     

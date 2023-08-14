@@ -1,6 +1,5 @@
 import React,{useEffect,useState} from 'react'
 import {useLocation} from 'react-router-dom'
-import axios from 'axios'
 import useFetch from '../hooks/fetch.hook'
 
 import Select from '../components/Select';
@@ -10,38 +9,29 @@ import Image from '../components/Image'
 
 const StudentResult = ()=>{
 
-    const { state: { id, Semester } } = useLocation();
-    const [{ apiData }, setData, setParams] = useFetch('students/getone');
-    const [{ apiData: result }, /*setResultData*/, setResultParams] = useFetch('students/studentResult');
-    const [selectedSemester, setSelection] = useState(Semester);
-    
+    const { state } = useLocation();
+    const [{ apiData },,setParams] = useFetch('students/getone');
+    const [{ apiData: result },,setResultParams] = useFetch('students/studentResult');
+    const [selectedSemester, setSelection] = useState(state?.Semester);
+
     useEffect(() => {
-      if (id) {
-        setParams({ id: id });
-        setResultParams({ id: id });
+
+      if (state?.id) {
+        setParams({ id:state?.id });
+        setResultParams({ id:state?.id });
       }
-    
-      if (!id) {
-        console.log('without id called');
-        const token = localStorage.getItem('token');
-        axios.get('/api/students/getone', {
-          "Content-Type": "application/json", 
-          withCredentials: true,
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        }).then((response) => {
-          setData({ apiData: response?.data });
-        });
+
+      if(!state?.id){
+        if(!selectedSemester){
+            setSelection(apiData?.Semester)
+        }
       }
-    
+
       if (selectedSemester != null) {
         setResultParams((prevVal) => { return { ...prevVal, semester: selectedSemester } });
       }
-    }, [id, selectedSemester, setData, setParams, setResultParams]);
+    }, [state?.id,apiData?.Semester,selectedSemester, setParams, setResultParams]);
     
-
-
     return (
         <div style={{display:'grid',marginLeft:'200px',gridTemplateColumns:'3fr 1fr'}} >
             <div>
@@ -146,7 +136,7 @@ const StudentResult = ()=>{
                     </div>
                 </div>
             </div>
-            <div style={{marginLeft:'100px',marginTop:'10px'}}>
+            <div style={{marginLeft:'100px'}}>
                 <Select options = {[
             
                     {selectionText : "Semester 1" , value:1},

@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
+import Image from './Image';
 import Select from './Select';
-import Avatar from '../assates/profile.png'
 import { Typography } from '@mui/material';
 
 import '../styles/table.css'
@@ -39,20 +39,20 @@ function StudentList({Params,setParams,students,rollNumber,setRollNumber,openSta
   }, [students, selectedSemester,Params.semester, setParams, studentData, setStudentData,setRollNumber]);
 
   return (
-    <div style={{overflow:'auto',width:'100%'}}>
+    <div>
 
-        <div style={{display:'flex',boxShadow: '0 7px 7px -10px rgba(51, 51, 51, 0.23)',backgroundColor:'white',borderTopLeftRadius:'7px',borderTopRightRadius:'7px'}}>
+        <div style={{display:'flex',height:'60px',backgroundColor:'white',borderTopLeftRadius:'7px',borderTopRightRadius:'7px'}}>
             <div style={{marginTop:'20px',marginLeft:'10px'}}>
                 Work Left
             </div>
-            <div style={{marginLeft:'280px'}}>
+            <div style={{marginLeft:'280px',marginBottom:'5px'}}>
                 <Select options = {[
               
-                    {selectionText : "All Semester" , value:'All'},
-                    {selectionText : "Semester 1" , value: 1},
-                    {selectionText : "Semester 2" , value:2},
-                    {selectionText : "Semester 3" , value:3},
-                    {selectionText : "Semester 4" , value:4},
+                  {selectionText : "All Semester" , value:'All'},
+                  {selectionText : "Semester 1" , value: 1},
+                  {selectionText : "Semester 2" , value:2},
+                  {selectionText : "Semester 3" , value:3},
+                  {selectionText : "Semester 4" , value:4},
 
                 ]}
 
@@ -64,7 +64,7 @@ function StudentList({Params,setParams,students,rollNumber,setRollNumber,openSta
         </div>
         <div className='All' style={{backgroundColor:'white'}}>
 
-            <div style={{transition:'0.3s',height:openStatus?'350px':'435px'}} className='tableContent'>
+            <div style={{height:openStatus?'340px':'450px',transition:'0.3s'}} className='tableContent'>
 
                 <table style={{width:'500px',borderCollapse: 'collapse'}} id="myTable">
         
@@ -91,7 +91,7 @@ function StudentList({Params,setParams,students,rollNumber,setRollNumber,openSta
                         {studentData?.length >= 1?studentData?.map(({_id,Roll_Number,profile,firstName,lastName})=>(
                             <tr onClick={()=>{setRollNumber(Roll_Number)}} style={{cursor: 'pointer',backgroundColor:rollNumber === Roll_Number ? 'whitesmoke' : 'white'}} key={_id}>
                                 <td>
-                                        <img src={profile|| Avatar} alt='student' style={{width:'40px',borderRadius:'50%'}}/>
+                                        <Image Image={profile} alt='student' style={{width:'40px',borderRadius:'50%'}}/>
                                 </td>
                                 <td>
                                         <Typography variant="overline" gutterBottom>{firstName + ' ' + lastName}</Typography>

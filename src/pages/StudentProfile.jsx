@@ -21,7 +21,7 @@ function StudentProfile() {
   const {state} = useLocation()
   const [{apiData}] = useFetch(`studentprofile/${state?.Id}`,{skip:!state?.Id})
 
-
+console.log('apiData : ',apiData);
   return (
     <div style={{marginTop:'20px',width:'auto',overflow: 'auto'}}>
         <Accordion style={{width:'1100px'}}>
@@ -65,9 +65,9 @@ function StudentProfile() {
             <div style={{display:'flex'}}>
               
               <div>
-              
+
                 <Typography>
-                  Semester : {apiData?.Semester}
+                  Department : {apiData?.department}
                 </Typography>
 
                 <Typography>  
@@ -79,20 +79,20 @@ function StudentProfile() {
               <div style={{marginLeft:'80px'}}>
 
                 <Typography>
-                  Registration Number : {apiData?.Regitration_Number}
+                  Registration Number : {apiData?.Registration_Number}
                 </Typography>
 
                 <Typography>
-                  Department : {apiData?.department}
+                  Semester : {apiData?.Semester}
                 </Typography>
-            
+
               </div>
             
             </div>
           </AccordionDetails>
         
         </Accordion>
-        <Accordion>
+        {apiData?.contact&&<Accordion>
           
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -101,42 +101,40 @@ function StudentProfile() {
           >
             
             <Typography>
-              <strong>Contect</strong>
+              <strong>Address</strong>
             </Typography>
         
           </AccordionSummary>
         
           <AccordionDetails>
-            <div style={{display:'flex'}}>
-              
-              <div>
-              
-                <Typography>
-                  Address
-                </Typography>
+            <div>
 
-                {/* <Typography>  
-                  Roll Number : {apiData?.Roll_Number}
-                </Typography> */}
-            
+              <div style={{display:'flex'}}>
+                <Typography style={{color:'gray'}}>
+                  <strong>{apiData?.contact?.address?.Street}</strong>
+                </Typography>
+                <Typography style={{marginLeft:'30px',color:'gray'}}>
+                  <strong>{apiData?.contact?.address?.City}</strong>
+                </Typography>
               </div>
-
-              {/* <div style={{marginLeft:'80px'}}>
-
-                <Typography>
-                  Registration Number : {apiData?.Regitration_Number}
+              <div style={{display:'flex'}}>
+                <Typography style={{color:'gray'}}>
+                  <strong>{apiData?.contact?.address?.State}</strong>
                 </Typography>
-
-                <Typography>
-                  Department : {apiData?.department}
+                <Typography style={{marginLeft:'30px',color:'gray'}}>
+                  <strong>{apiData?.contact?.address?.pinCode}</strong>
                 </Typography>
-            
+                <Typography style={{marginLeft:'30px',color:'gray'}}>
+                  <strong>{apiData?.contact?.address?.District}</strong>
+                </Typography>
+                <Typography style={{marginLeft:'30px',color:'gray'}}>
+                  <strong>{apiData?.contact?.Mobile}</strong>
+                </Typography>
               </div>
-             */}
             </div>
           </AccordionDetails>
         
-        </Accordion>
+        </Accordion>}
         
     </div>
   )

@@ -5,16 +5,8 @@
 
 .collegeLogo{
     margin-left: 350px;   
-    /* margin-top: 100px; */
     width: 250px;
-    /* color: red; */
 }
-
-/* table{
-
-    border: 1px solid gray;
-
-} */
 
 .stuInfo{
 
@@ -33,7 +25,6 @@
 thead th{
 
     height: 20px;
-    /* background-color: whitesmoke; */
 
 }
 

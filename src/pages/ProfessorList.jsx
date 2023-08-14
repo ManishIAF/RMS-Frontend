@@ -23,7 +23,7 @@ function ProfessorList() {
     const [open,setOpen] = useState(false)
     const [openConfirmation,setConfirmation] = useState({username:null,userId:null})
     const [activeIndex, setActiveIndex] = useState(null);
-    const [{apiData},,setParams] = useFetch('professor');
+    const [{apiData,isLoading},,setParams] = useFetch('professor');
     const [{apiData:options},,setOptionsParams] = useFetch('course')
     const [alert,setAlert] = useState({});
     const [courses,setCourses] = useState(null);
@@ -56,7 +56,7 @@ function ProfessorList() {
         const token = localStorage.getItem('token');
         axios.delete('/api/professor',{
             params:{id:openConfirmation?.userId},
-            "Content-Type":"Application/json",
+            "Content-Type":"application/json",
             withCredential:true,
             headers:{
                 "Authorization": `Bearer ${token}`
@@ -95,13 +95,10 @@ function ProfessorList() {
         })
         .then(response => {
             // handle successful response
-            if(response.status === 200){
+            setOptionsParams({})
+            setAlert({message:response.data,variant:'success'})
+            setCourses(prevCourses => prevCourses?.filter(course => course._id !== courseId));
 
-                setOptionsParams({})
-                setAlert({message:response.data,variant:'success'})
-                setCourses(prevCourses => prevCourses?.filter(course => course._id !== courseId));
-
-            }
         })
         .catch(error => {
             // handle error response
@@ -112,7 +109,7 @@ function ProfessorList() {
     }
 
 return (
-    <div style={{display:'flex',width:'100%',marginTop:'50px'}}>
+    <div style={{display:'flex',marginLeft:'10px',width:'100%',marginTop:'50px'}}>
 
         {alert?.message&&<Alert alert={alert}/>}
 
@@ -196,7 +193,7 @@ return (
                     }
                 </ol>
 
-                {courses === null &&<div style={{margin:'10px',color:'green'}}>Please click on any professor to know alloted courses</div>}
+                {(courses === null)&&!isLoading &&<div style={{margin:'10px',color:'green'}}>Please click on any professor to know alloted courses</div>}
             </div>
         
         </div>

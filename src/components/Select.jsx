@@ -1,28 +1,34 @@
 import React from 'react'
 import Select1 from '@mui/material/Select'
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import { MenuItem } from '@mui/material'
-// import InputLabel from '@mui/material/InputLabel';
 import '../styles/Select.css'
 
-function Select({options,fun,selectedValue}) {
+function Select({defaultchoice,options,fun,selectedValue}) {
 
   return (
         
-        <div>
+        <FormControl variant="standard" sx={{minWidth: 120 }}>
+          <InputLabel id="demo-multiple-name-label">Semester</InputLabel>
           <Select1 
-            sx={{ m: 1, minWidth: 120 }}
             variant="standard" 
-            labelId="demo-simple-select-standard-label" 
+            labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard" 
             value={selectedValue} 
             onChange={(event)=>fun(event.target.value)}
+            label="Semester"
           >
-          
-            {options.map((opt)=> <MenuItem key={opt.value} value={opt.value}>{opt.selectionText}</MenuItem>)}
+            {defaultchoice&&
+              <MenuItem value={""}>
+                <em>None</em>
+              </MenuItem>}
+              {options.map((opt)=> <MenuItem key={opt.value} value={opt.value}>{opt.selectionText}</MenuItem>)
+            }
           
           </Select1>
         
-        </div>
+        </FormControl>
   
   ) 
 }

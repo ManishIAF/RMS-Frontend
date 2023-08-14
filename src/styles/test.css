@@ -1,9 +1,6 @@
 .leaderboard {
     position: relative;
-    /* width: 100%; */
-    /* width: auto; */
     border-radius: 12px;
-    /* overflow: hidden;  */
   }
   
   .leaderboard__profiles {
@@ -16,7 +13,6 @@
     display: grid;
     grid-template-columns: 1fr 3fr 3fr 1fr;
     gap: 20px;
-    /* width: 100%; */
     align-items: center;
     padding: 10px 30px 10px 10px;
     overflow: hidden;
@@ -59,17 +55,4 @@
     margin-left: 50px;
   }
   
-  /* ***************************************** */
-  /* .Line{
-    display:flex;
-  }
-  hr,.solidLine{
-    border-top: 3px solid #9da4c5;
-    height: 3px;
-    width: 50px;
-  }
-  hr,.dottedLine{
-    border-top: 3px dotted rgb(157, 164, 197);
-    height: 3px;
-    width: 100px;
-   } */
+  

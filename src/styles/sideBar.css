@@ -1,19 +1,7 @@
-*{
-
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* .bars{
-  margin-top: 20px;
-} */
-
 .sideBar{
 
   background: rgb(0, 7, 61);
   color: white;
-  /* width: auto; */
   height: 100vh;
 
 }
@@ -47,11 +35,9 @@
 .search input{
 
   border: none;
-  /* width: 154px; */
   margin-left: 10px;
   border-radius: 5px;
   background: rgb(238,238,238);
-  /* padding: 5px 10px; */
 }
 
 .link{
@@ -75,6 +61,10 @@
 
 }
 
+.link:first-child:hover {
+  background:  4px solid transparent;
+}
+
 .link-text{
 
   white-space: nowrap;
@@ -93,15 +83,9 @@
 .icons{
   margin-top:5px;
 }
-/* .routes{
-  padding-left: 10px;
-} */
-
-
 
 .mainContainer{
 
-  /* display: flex; */
   width: auto;
 
 }

@@ -3,7 +3,7 @@ import { useLocation,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useFetch from '../hooks/fetch.hook';
 import Alert from '../components/Alert'
-import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useForm} from "react-hook-form";
 
@@ -24,11 +24,11 @@ function AddProfessor() {
       }
     }
 
-    if (apiData) {
-      setValue('firstName', apiData.firstName);
-      setValue('lastName', apiData.lastName);
-      setValue('email', apiData.email);
-    }
+    // if (apiData) {
+    //   setValue('firstName', apiData.firstName);
+    //   setValue('lastName', apiData.lastName);
+    //   setValue('email', apiData.email);
+    // }
 
   },[Navigate,pathname,state?.id,setValue,apiData])
 
@@ -119,47 +119,17 @@ function AddProfessor() {
           <div style={{display:'flex'}}>
             
             <div>
-              {/* <Input type='text' {...register('firstName',{required:true,maxLength:100})} disabled={false} placeholder="firstName" /> */}
-              <FormControl>
-                <InputLabel>First Name</InputLabel>
-                <OutlinedInput 
-                  id="outlined-adornment-amount"
-                  type='text' 
-                  {...register('firstName',{required:true})} 
-                  disabled={false} 
-                  label="First Name"
-                />
-              </FormControl>
+              <TextField id="outlined-basic" {...register('firstName',{required:true})} defaultValue={apiData?.firstName} label="First Name" variant="outlined" />
             </div>
 
             <div style={{marginLeft:'20px'}}>
-              <FormControl>
-                <InputLabel>Last Name</InputLabel>
-                <OutlinedInput 
-                  id="outlined-adornment-amount"
-                  type='text' 
-                  {...register('lastName',{required:true})} 
-                  disabled={false} 
-                  label="Last Name"
-                />
-              </FormControl>
+              <TextField id="outlined-basic" {...register('lastName',{required:true})} defaultValue={apiData?.lastName} label="Last Name" variant="outlined" />
             </div>
 
           </div><br />
           
           <div>
-
-              <FormControl fullWidth>
-                <InputLabel>E-mail</InputLabel>
-                <OutlinedInput 
-                  id="outlined-adornment-amount"
-                  type='email' 
-                  {...register('email',{required:true})} 
-                  disabled={false} 
-                  label="E-mail"
-                />
-              </FormControl>
-              
+            <TextField fullWidth id="outlined-basic" {...register('email',{required:true})} defaultValue={apiData?.email} label="E-mail" variant="outlined" />
               <div>
                 {!apiData?
                   <Button onClick={handleSubmit(addProfessor)} style={{width:'100%',height:'50px',marginTop:'10px'}} type='submit' variant="contained">

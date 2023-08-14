@@ -13,16 +13,18 @@ import axios from 'axios';
 import AllotedCourses from '../components/allotedCourses';
 import { Select,MenuItem } from '@mui/material';
 import StudentList from '../components/StudentList';
+import ITEM from '../components/Paper';
 
 
 function AddResult() {
 
   const {state} = useLocation();
   const Navigate = useNavigate()
-  const [rollNumber,setRollNumber] = useState(undefined);
-  const [{apiData},setData] = useFetch(`students/${rollNumber}`,{ skip: !rollNumber });
+
+  const [rollNumber,setRollNumber] = useState(state?.roll);
+  const [{apiData}] = useFetch(`students/${rollNumber}`,{ skip: !rollNumber });
   const [{apiData:students},,setParams,Params] = useFetch('students');
-  const [{apiData:allotedCourses}] = useFetch('professor/course')
+  const [{apiData:allotedCourses}] = useFetch('professor/course');
   const {control,register, handleSubmit,reset,setValue} = useForm();
   const [openStatus,setOpenStatus] = useState(false);
   const [alert,setAlert] = useState({});
@@ -36,7 +38,7 @@ function AddResult() {
 
   useEffect(() => {
 
-    if(allotedCourses){
+    if(allotedCourses){ 
 
       setValue('SubjectId',allotedCourses&&allotedCourses[0]?._id)
 
@@ -45,14 +47,8 @@ function AddResult() {
     if(rollNumber){
       setValue('Roll_Number',rollNumber)
     }
-
-    if(state?.roll){
-
-      setRollNumber(state?.roll);
-
-    }
     
-  }, [allotedCourses,rollNumber,setValue,state?.roll]);
+  }, [allotedCourses,rollNumber,setValue]);
 
   const onSubmit = (data,event) => {
 
@@ -84,73 +80,57 @@ function AddResult() {
       }
     ).then((response)=>{
 
+      setParams({})
+      reset({ Roll_Number: null, Internal: null,Theory: null, Practical: null });
+      setAlert({message:response?.data,variant:"success"})
 
-      setAlert(()=>{
-                
-                if(response.status === 200){
+      if(state?.roll){
+        setTimeout(() => {
+            Navigate('/admin/students')
 
-                    setParams({})
-                    if(!state?.roll){
-
-                      setData({apiData:undefined})
-                      setRollNumber(undefined)
-                      reset({ Roll_Number: null, Internal: null,Theory: null, Practical: null });
-
-                    }
-
-                    return {message:response?.data,variant:"success"}
-
-                }
-
-              })
-
-              setTimeout(() => {
-                
-                if(state?.roll){
-                  Navigate('/admin/students')
-                }
-
-              }, 1000);
-
+        }, 1000);
+      }
     }).catch((error)=>{
 
-        setAlert({message:error.response.data,variant:'info'})
+      setAlert({message:error.response.data,variant:'info'})
         
-      })
+    })
 
 
   }
 
   return (
     
-    <div style={{overflow:'auto',width:'100%',alignContent:'center'}}>
+    <div style={{width:'100%',alignContent:'center',height:'100%',marginTop:'5px'}}>
       {alert?.message&&<Alerting alert={alert}/>}
       
       <div onClick={()=>setOpenStatus(!openStatus)}>
-        <AllotedCourses openStatus={openStatus} setOpenStatus={setOpenStatus}/>
+        <AllotedCourses Data={allotedCourses} openStatus={openStatus} setOpenStatus={setOpenStatus}/>
       </div>
-
-      <div style={{display:'flex',marginLeft:!state?.roll&&students&&'50px',justifyContent:'center'}}>
-        <div style={{transition:'0.2s',marginTop:openStatus?'50px':'100px'}}>
+      <div style={{display:'grid',gridTemplateColumns:state?.roll?'auto':'3fr 2fr',justifyContent:'center'}}>
+        <ITEM marginLeft='40px' marginTop={!openStatus?'70px':'10px'} width='600px' height='400px' borderRadius='7px'>
           {apiData?.firstName&&<div><Grow in={true} style={{ transformOrigin: '0 0 0' }} {...(true ? { timeout: 500 } : {})}>
-  
-            <div style={{display:"flex"}}>
+            <div style={{display:"flex",marginTop:'100px',justifyContent:'center'}}>
           
-              <div style={{marginTop:'40px'}}>
-                <Image Image={apiData?.profile} alt='student' width='100px' imageRadius='50%'/>
+              <div>
+                <Image Image={apiData?.profile} alt='student' width='80px' imageRadius='50%'/>
               </div>
         
-              <div style={{marginTop:'40px',marginLeft:'15px'}}>
-                <p><strong>Name :</strong> {apiData?.firstName + ' ' + apiData?.lastName}</p>
-                <p><strong>Roll Number :</strong> {apiData?.Roll_Number}</p>
-                <p><strong>Registration Number :</strong> {apiData?.Regitration_Number}</p>
-                <p><strong>Semester :</strong> {apiData?.Semester}</p>
+              <div style={{display:'flex',marginLeft:'10px',marginTop:'15px',lineHeight:'25px'}}>
+                <div>
+                  <p><strong>Name :</strong> {apiData?.firstName + ' ' + apiData?.lastName}</p>
+                  <p><strong>Semester :</strong> {apiData?.Semester}</p>
+                </div>
+                <div style={{marginLeft:'10px'}}>
+                  <p><strong>Registration Number :</strong> {apiData?.Regitration_Number}</p>
+                  <p><strong>Roll Number :</strong> {apiData?.Roll_Number}</p>
+                </div>
               </div>
       
             </div>
           </Grow></div>}
       
-        <div>
+        <div style={{display:'flex',justifyContent:'center',marginTop:!rollNumber&&'120px'}}>
           <form onSubmit={handleSubmit(onSubmit)} ><br />
 
             <div style={{display:'flex'}}>
@@ -162,7 +142,7 @@ function AddResult() {
                 <div style={{marginLeft:'20px'}}>
                 <Controller
                   name="SubjectId"
-                  defaultValue={allotedCourses?allotedCourses[0]?._id:undefined}
+                  defaultValue=''
                   control={control}
                   render={({ field }) => (
                     <Select variant="standard" sx={{minWidth: 160}} {...field}>
@@ -202,10 +182,10 @@ function AddResult() {
 
           </form>
         </div>
-        </div>
+        </ITEM>
 
-        {!state?.roll&&students&&<div style={{marginTop:'10px',marginLeft:'100px'}}>
-            <StudentList Params={Params} setParams={setParams} openStatus={openStatus} students={students} rollNumber={rollNumber} setRollNumber={setRollNumber}/>
+        {!state?.roll&&students&&<div style={{width:'500px',padding:'1px',marginLeft:'10px'}}>
+            <StudentList Params={Params} setParams={setParams} openStatus={openStatus} students={students?.studentData} rollNumber={rollNumber} setRollNumber={setRollNumber}/>
         </div>}
 
       </div>

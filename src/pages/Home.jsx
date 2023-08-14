@@ -16,7 +16,7 @@ const Home = ()=> {
   const Navigate = useNavigate()
 
   const [selectedSemester,setSelection] = useState('All')
-  const [{apiData},,setParams,Params] = useFetch(`result`);
+  const [{apiData,isLoading},,setParams,Params] = useFetch(`result`);
   const [alert,setAlert] = useState({});
 
   useEffect(()=>{
@@ -65,7 +65,7 @@ const Home = ()=> {
  
   
   return (
-    <div style={{marginLeft:'5px',width:'auto',overflow:'auto'}}>
+    <div style={{marginLeft:'5px',marginTop:'20px',width:'auto',overflow:'auto'}}>
       {alert?.message&&<Alerting alert={alert}/>}
       <div style={{display:'flex'}}>
         <div style={{marginTop:'10px'}}>
@@ -84,26 +84,26 @@ const Home = ()=> {
 
           <div style={{display:'flex'}} >
 
-              <div style={{marginTop:'15px',width:'25px'}}>
+            <div style={{marginTop:'15px',width:'25px'}}>
               <SearchBar SearchFunction={SearchFunction} />
             </div>
 
-            <div style={{ display:'flex',marginTop:'15px',marginLeft:'900px'}}>
+            <div defaultChoice="All Semester" style={{ display:'flex',marginTop:'15px',marginLeft:'900px'}}>
               <div>
-              <Select options = {[
-              
-                  {selectionText : "All Semester" , value:'All'},
-                  {selectionText : "Semester 1" , value: 1},
-                  {selectionText : "Semester 2" , value:2},
-                  {selectionText : "Semester 3" , value:3},
-                  {selectionText : "Semester 4" , value:4},
+                <Select options = {[
+                
+                    {selectionText : "All Semester" , value:'All'},
+                    {selectionText : "Semester 1" , value: 1},
+                    {selectionText : "Semester 2" , value:2},
+                    {selectionText : "Semester 3" , value:3},
+                    {selectionText : "Semester 4" , value:4},
 
-                ]}
+                  ]}
 
-                fun={setSelection}
-                selectedValue={selectedSemester}
+                  fun={setSelection}
+                  selectedValue={selectedSemester}
 
-              />
+                />
               </div>
               <div>
             
@@ -119,11 +119,12 @@ const Home = ()=> {
           </div>
         </div>}
         
-        <div style={{display:'flex',justifyContent:'center',width:'100%'}}>
+        {isLoading?<div style={{display:'flex',justifyContent:'center',marginTop:'250px'}}>Loading....</div>:
+          <div style={{display:'flex',justifyContent:'center',width:'100%'}}>
        
             <ResultList handleDelete={handleDelete} columns={['Images','Name','Roll Number','Semester','Subject',"Internal",'Theory',"Practical","Total","Actions"]} rowsData={apiData}/>
         
-        </div>
+        </div>}
       
       </div>
 

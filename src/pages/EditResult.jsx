@@ -7,17 +7,17 @@ import Alerting from '../components/Alert'
 import useFetch from '../hooks/fetch.hook';
 import Button from '@mui/material/Button';
 
+import Image from '../components/Image';
 import axios from 'axios';
+import ITEM from '../components/Paper';
 
 const EditStudent = ()=> {
-
-  const Navigate = useNavigate()
   const location = useLocation()
   const {state} = location
+  const Navigate = useNavigate()
   const [alert,setAlert] = useState({});
   const [{apiData}] = useFetch(`result/${state?.ResultId}`,{skip:!state?.ResultId});
   const {register, handleSubmit,formState: { errors }} = useForm()
-
 
   useEffect(()=>{
     if(location.pathname === '/admin/editResult'){
@@ -64,20 +64,19 @@ const EditStudent = ()=> {
         
       })
 
-
   }
 
 
   return (
 
-    <div style={{marginTop:'50px'}}>
+    <ITEM marginTop='80px' width='600px' height='400px' borderRadius='7px'>
       {alert?.message&&<Alerting alert={alert}/>}
 
-          { apiData && <div>
+          { apiData && <div style={{marginLeft:'15px',marginTop:'50px'}}>
           <div style={{display:'flex'}}>
           
           <div style={{marginTop:'40px'}}>
-            <img src={apiData?.profile} alt='student' style={{width:'80px',borderRadius:'50%'}}/>
+            <Image Image={apiData?.profile} alt='student' width='80px' imageRadius='50%'/>
           </div>
 
           
@@ -133,7 +132,7 @@ const EditStudent = ()=> {
       
       </div>}
     
-    </div>
+    </ITEM>
 
   )
 
