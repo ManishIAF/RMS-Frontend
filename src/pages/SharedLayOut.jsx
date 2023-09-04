@@ -1,11 +1,10 @@
 import React from 'react'
-
 import '../styles/pageFormat.css'
 import Sidebar from '../components/SideBar';
 import Navbar from '../components/NavBar';
 import { Outlet } from 'react-router-dom';
 
-const SharedLayOut = ({Autherization})=> {
+const SharedLayOut = ({Autherization})=> {  
 
   return (
     <div className="container">

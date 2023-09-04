@@ -6,10 +6,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function AllotedCourses({Data,openStatus,setOpenStatus}) {
+export default function AllotedCourses({Data}) {
 
   return (
-        <Accordion style={{width:'100%'}} onClick={()=>setOpenStatus(!openStatus)}>
+        <Accordion style={{width:'100%'}}>
           
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

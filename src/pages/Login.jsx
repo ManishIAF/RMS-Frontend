@@ -11,9 +11,7 @@ import { useState } from 'react';
 function Login() {
 
   const navigate = useNavigate()
-
-  const {register:register1, handleSubmit:handleSubmit1} = useForm();
-  const {register:register2, handleSubmit:handleSubmit2} = useForm();
+  const {register, handleSubmit,formState: { errors }} = useForm();
   const [alert,setAlert] = useState({});
 
   const [user,setUser] = useState({
@@ -68,7 +66,6 @@ function Login() {
     axios.post('/api/login',{username:user?.username,password:data?.password}).then((response)=>{
 
       if(response?.status === 200){
-        // console.log('response : ',response.data.token);
         localStorage.setItem('token', response?.data?.token);
         setAlert({message:response?.data.msg,variant:"success"})        
         setTimeout(() => {
@@ -78,7 +75,6 @@ function Login() {
 
     }).catch((error)=>{
 
-      // console.log('error?.response?.data : ',error?.response?.data)
       setAlert({message:error?.response?.data,variant:"info"})
       
 
@@ -93,45 +89,36 @@ function Login() {
           <div style={{height:'30px'}}>
                       
               {(user?.firstName||user?.username)&&<Alert style={{display:'flex',justifyContent:'center',background:'none'}}>
-                <strong>{'Hello ' + user?.firstName||user?.username} </strong>
-              </Alert>}
-              {user?.pass&&<Alert style={{display:'flex',justifyContent:'center',background:'none'}}>
-                <strong>{user?.pass}</strong>
+                {!user?.pass?<strong>{'Hello ' + user?.firstName||user?.username}</strong>:<strong>{user?.pass}</strong>}
               </Alert>}
 
           </div>
 
-            <div style={{display: 'flex', alignItems: 'flex-end',marginTop:'30px',height:'50px'}}>
+            <div style={{display: 'flex',marginTop:'30px',height:'50px'}}>
               
               <div>
                 <Image Image={user?.profile} width='50px'/>
               </div>
 
-              <div style={{display:'flex', marginBottom:'10px' ,marginLeft:'10px'}}>
-                {!user?.username&&<div>
-                  <form onSubmit={handleSubmit1(handleVerify)}>
+              <div style={{display:'flex',marginTop:'10px',marginBottom:'10px' ,marginLeft:'10px'}}>
+                <div>
                     <div style={{display:'flex'}}>
-                      <div>
-                        <Input {...register1('username', {required:true,maxLength:100})} type='text' placeholder='Username' />
-                      </div>
-                      <div style={{marginLeft:'10px'}}>
-                        <Button size="small" variant="contained" type='submit'>Let's Go</Button>
-                      </div>
+                      {!user?.username&&<div>
+                        <Input {...register('username', {required:'username is required'})} type='text' placeholder='Username' /><br/>
+                        {errors.username&&<span style={{color:'red',fontSize:'12px'}}>{errors.username.message}</span>}
+                      </div>}
+                      {user?.username&&<div>
+                        <Input {...register('password', {required:'password is required'})} type='password' placeholder='password' /><br/>
+                        {errors.password&&<span style={{color:'red',fontSize:'12px'}}>{errors.password.message}</span>}
+                      </div>}
+                      {!user?.username&&<div style={{marginLeft:'10px'}}>
+                        <Button size="small" type='submit' variant="contained" onClick={handleSubmit(handleVerify)}>Let's Go</Button>
+                      </div>}
+                      {user?.username&&<div style={{marginLeft:'10px'}}>
+                        <Button size="small" type='submit' variant="contained" onClick={handleSubmit(handleLogin)} >Sign In</Button>
+                      </div>}
                     </div>
-                  </form>
-                </div>}
-                {user?.username&&<div>
-                  <form onSubmit={handleSubmit2(handleLogin)}>
-                    <div style={{display:'flex'}}>
-                      <div>
-                        <Input {...register2('password', {required:true,maxLength:100})} type='password' placeholder='password' />
-                      </div>
-                      <div style={{marginLeft:'10px'}}>
-                        <Button size="small" variant="contained" type='submit'>Sign In</Button>
-                      </div>
-                    </div>
-                  </form>
-                </div>}
+                </div>
               </div>
             </div>
             <div style={{padding:'10px'}}>

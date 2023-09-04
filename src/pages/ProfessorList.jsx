@@ -109,93 +109,96 @@ function ProfessorList() {
     }
 
 return (
-    <div style={{display:'flex',marginLeft:'10px',width:'100%',marginTop:'50px'}}>
+    <div style={{marginLeft:'10px',width:'100%',marginTop:'10px'}}>
 
         {alert?.message&&<Alert alert={alert}/>}
 
         {open&&<DialogComp setOptionsParams={setOptionsParams} addCourses={setCourses} open={open} options={options?options:[{_id:0,subject:'No subjects under you'}]} profId={activeIndex} setOpen={setOpen} />}
         {openConfirmation?.userId&&
             <Confirm setConfirmation={setConfirmation} openConfirmation={openConfirmation} handleUserDelete={handleUserDelete} />
-        } 
-        <div className="leaderboard">    
-            <ul className="leaderboard__profiles">
-                {apiData&&apiData?.map((profData)=>(
-                            <li className="leaderboard__profile" key={profData?._id} style={{backgroundColor:activeIndex === profData?._id ? 'whitesmoke' :      'white'}} onClick={()=>handleClick(profData?.coursesId,profData?._id)} > 
-                                <div>
-                                    <Image Image={profData?.profile} width='50px' />
-                                </div> 
-                        
-                                <div className="leaderboard__name" >
-                                    <div>Prof. {profData?.firstName + ' ' + profData?.lastName}</div>
-                                </div> 
-                        
-                                <div className="leaderboard__value" >
-                                    <span>{profData?.department}</span>
-                                </div>
-                                <div>
-                                    <MoreButton title='More' Icon={<MoreVertIcon style={{color:'none',background:'none'}} />} options={[
-                                        {
-                                            name:'Edit',
-                                            Icon:<AiOutlineEdit style={{width:'15px' , color:'green'}}/>,
-                                            fun:()=>{navigate('/admin/editProfessor',{state:{id:profData?._id}})}
-                                        },
-                                        {
-                                            name:'Add Course',
-                                            Icon:<NoteAddIcon style={{width:'15px' , color:'green'}} />,
-                                            fun:()=>{ 
-                                                // event.stopPropagation();
-                                                return setOpen(true)
+        }
+        <h2>Professor List</h2>
+        <div style={{display:'flex',marginTop:'10px'}}> 
+            <div className="leaderboard">    
+                <ul className="leaderboard__profiles">
+                    {apiData&&apiData?.map((profData)=>(
+                                <li className="leaderboard__profile" key={profData?._id} style={{backgroundColor:activeIndex === profData?._id ? 'whitesmoke' :      'white'}} onClick={()=>handleClick(profData?.coursesId,profData?._id)} > 
+                                    <div>
+                                        <Image Image={profData?.profile} width='50px' />
+                                    </div> 
+                            
+                                    <div className="leaderboard__name" >
+                                        <div>Prof. {profData?.firstName + ' ' + profData?.lastName}</div>
+                                    </div> 
+                            
+                                    <div className="leaderboard__value" >
+                                        <span>{profData?.department}</span>
+                                    </div>
+                                    <div>
+                                        <MoreButton title='More' Icon={<MoreVertIcon style={{color:'none',background:'none'}} />} options={[
+                                            {
+                                                name:'Edit',
+                                                Icon:<AiOutlineEdit style={{width:'15px' , color:'green'}}/>,
+                                                fun:()=>{navigate('/admin/editProfessor',{state:{id:profData?._id}})}
+                                            },
+                                            {
+                                                name:'Add Course',
+                                                Icon:<NoteAddIcon style={{width:'15px' , color:'green'}} />,
+                                                fun:()=>{ 
+                                                    // event.stopPropagation();
+                                                    return setOpen(true)
+                                                }
+                                            },
+                                            {
+                                                name:'Delete',
+                                                Icon:<DeleteIcon style={{width:'15px' , color:'red'}} />,
+                                                fun:()=>{setConfirmation({username:`${profData?.firstName + ' ' + profData?.lastName}`,userId:profData?._id})/*handleUserDelete()*/}
                                             }
-                                        },
-                                        {
-                                            name:'Delete',
-                                            Icon:<DeleteIcon style={{width:'15px' , color:'red'}} />,
-                                            fun:()=>{setConfirmation({username:`${profData?.firstName + ' ' + profData?.lastName}`,userId:profData?._id})/*handleUserDelete()*/}
-                                        }
-                                    ]} />
+                                        ]} />
+                                    </div>
+
+                                </li>
+                    ))}
+
+                </ul>
+        
+            </div>
+
+            <div>
+                <div style={{marginLeft:'30px'}}>
+
+                    <ol style={{listStyleType: 'none'}}>
+                        {courses?.length >= 1 ?courses?.map((course)=>(
+                            
+                            <li key={course?._id} style={{backgroundColor:'whitesmoke',boxShadow: '0 7px 9px -1px rgba(51, 51, 51, 0.23)',borderRadius:'7px',marginTop:'10px',minWidth:'300px',width:'auto'}} >
+                                
+                                <div style={{display:'flex',marginLeft:'10px',marginTop:'10px'}}>
+                                    <div style={{color:'green'}}>Semester : {course?.Semester}</div>
+                                    <div style={{color:'green',marginLeft:'50px'}}>Course : {course?.name}</div>
+                                </div>
+
+                                <div style={{display:'flex' ,marginTop:'10px',marginLeft:'10px'}}>
+                                    <div style={{color:'green',marginTop:'5px'}}>Subject : {course?.subject}</div>
+                                    <div><ToolTipComponent fun={()=>handleSubjectDelete(course?._id,course?.professorId)} title='remove course' content={<DeleteIcon style={{fontSize:'medium',color:'red'}} />} /></div>
                                 </div>
 
                             </li>
-                ))}
 
-            </ul>
-    
-        </div>
+                        )):
+                            activeIndex&&<li style={{backgroundColor:'whitesmoke',boxShadow: '0 7px 9px -1px rgba(51, 51, 51, 0.23)',borderRadius:'7px',marginTop:'10px',minWidth:'300px',width:'auto'}} >
+                                
+                                <div style={{display:'flex',marginLeft:'10px',marginTop:'10px'}}>
+                                    <div style={{color:'green'}}>You haven't alloted any course</div>
+                                </div>
 
-        <div>
-            <div style={{marginLeft:'30px'}}>
+                            </li>
+                        }
+                    </ol>
 
-                  <ol style={{listStyleType: 'none'}}>
-                    {courses?.length >= 1 ?courses?.map((course)=>(
-                        
-                        <li key={course?._id} style={{backgroundColor:'whitesmoke',boxShadow: '0 7px 9px -1px rgba(51, 51, 51, 0.23)',borderRadius:'7px',marginTop:'10px',minWidth:'300px',width:'auto'}} >
-                            
-                            <div style={{display:'flex',marginLeft:'10px',marginTop:'10px'}}>
-                                <div style={{color:'green'}}>Semester : {course?.Semester}</div>
-                                <div style={{color:'green',marginLeft:'50px'}}>Course : {course?.name}</div>
-                            </div>
-
-                            <div style={{display:'flex' ,marginTop:'10px',marginLeft:'10px'}}>
-                                <div style={{color:'green',marginTop:'5px'}}>Subject : {course?.subject}</div>
-                                <div><ToolTipComponent fun={()=>handleSubjectDelete(course?._id,course?.professorId)} title='remove course' content={<DeleteIcon style={{fontSize:'medium',color:'red'}} />} /></div>
-                            </div>
-
-                        </li>
-
-                    )):
-                        activeIndex&&<li style={{backgroundColor:'whitesmoke',boxShadow: '0 7px 9px -1px rgba(51, 51, 51, 0.23)',borderRadius:'7px',marginTop:'10px',minWidth:'300px',width:'auto'}} >
-                            
-                            <div style={{display:'flex',marginLeft:'10px',marginTop:'10px'}}>
-                                <div style={{color:'green'}}>You haven't alloted any course</div>
-                            </div>
-
-                        </li>
-                    }
-                </ol>
-
-                {(courses === null)&&!isLoading &&<div style={{margin:'10px',color:'green'}}>Please click on any professor to know alloted courses</div>}
+                    {(courses === null)&&!isLoading &&<div style={{margin:'10px',color:'green'}}>Please click on any professor to know alloted courses</div>}
+                </div>
+            
             </div>
-        
         </div>
         <SpeedDialTooltipOpen actions={actions} />
     </div>

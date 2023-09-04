@@ -7,7 +7,6 @@ import '../styles/Card.css'
 import Image from './Image'
 import Dot from './Dot';
 import {AiOutlineEdit} from 'react-icons/ai'
-// import VisibilityIcon from '@mui/icons-material/Visibility';
 import PersonIcon from '@mui/icons-material/Person';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import DeleteIcon from '@mui/icons-material/Delete';

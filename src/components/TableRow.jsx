@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Typography } from '@mui/material';
 
-import '../styles/table.css'
+// import '../styles/table.css'
 import Avatar from '../assates/profile.png'
 
 import {AiOutlineEdit} from 'react-icons/ai'
@@ -17,9 +17,9 @@ function TableRow({rowsData,handleDelete}) {
   const Navigate = useNavigate()
 
   return (
-    <tbody className='TableBody'>
-    {rowsData.map(({_id:ResultId,Roll_Number,profile,firstName,lastName,studentInfoId,Internal,Practical,Semester,subject,Theory,Total})=>(
-        <tr key={ResultId}>
+    <tbody>
+      {rowsData.map(({_id:ResultId,Roll_Number,profile,firstName,lastName,studentInfoId,Internal,Practical,Semester,subject,Theory,Total})=>(
+        <tr key={ResultId} style={{width:'100%'}}>
             <td >
               <img onClick={()=>Navigate('/admin/studentprofile',{state:{Id:studentInfoId}})} src={profile|| Avatar} alt='student' style={{width:'40px',borderRadius:'50%'}}/>
             </td>
@@ -63,8 +63,7 @@ function TableRow({rowsData,handleDelete}) {
             </td>
             
         </tr>
-            ))
-          }
+      ))}
     
     </tbody>
   )

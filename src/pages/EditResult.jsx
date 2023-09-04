@@ -105,19 +105,22 @@ const EditStudent = ()=> {
                 </div>
               
                 <div style={{marginLeft:'20px'}}>
-                  <Input type='number' {...register('Internal',{required:true,maxLength:10})} placeholder='Internal' defaultValue={apiData?.Internal} /><br />
+                  <Input type='number' {...register('Internal',{required:'Internal marks required', max: {value: 10,message: 'Internal marks cannot exceed 10'}})} placeholder='Internal' defaultValue={apiData?.Internal} /><br />
+                  {errors.Internal&& <span style={{color:'red',fontSize:'10px'}}>{errors.Internal.message}</span>}
                 </div>
               
-              </div><br />
+              </div>
               
-              <div style={{display:'flex'}}>
+              <div style={{display:'flex',marginTop:'20px'}}>
             
                 <div>
-                  <Input type='number' {...register('Theory',{required:true,maxLength:10})} placeholder='Theory' defaultValue={apiData?.Theory} />
+                  <Input type='number' {...register('Theory',{required:'Theory marks required',max: {value: 40,message: 'Theory marks cannot exceed 40'}})} placeholder='Theory' defaultValue={apiData?.Theory} /><br/>
+                  {errors.Theory&& <span style={{color:'red',fontSize:'10px'}}>{errors.Theory.message}</span>}
                 </div>
             
                 <div style={{marginLeft:'20px'}}>
-                  <Input type='number' {...register('Practical',{required:true,maxLength:10})} placeholder='Practical' defaultValue={apiData?.Practical} />
+                  <Input type='number' {...register('Practical',{required:'Practical marks required',max: {value: 30,message: 'Practical marks cannot exceed 30'}})} placeholder='Practical' defaultValue={apiData?.Practical} /><br/>
+                  {errors.Practical&& <span style={{color:'red',fontSize:'10px'}}>{errors.Practical.message}</span>}
                 </div>
             
                 <div>

@@ -4,6 +4,7 @@ import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import axios from 'axios'
 import { useForm} from "react-hook-form";
+import ITEM from '../components/Paper'
 import {useNavigate, useParams } from 'react-router-dom';
 
 function Reset() {
@@ -11,7 +12,7 @@ function Reset() {
   const {token:recoveryToken} = useParams()
 
   const navigate = useNavigate()
-  const {register, handleSubmit} = useForm();
+  const {register, handleSubmit,formState: { errors },watch} = useForm();
   const [alert,setAlert] = useState({});
  
   useEffect(()=>{
@@ -21,7 +22,6 @@ function Reset() {
         setAlert({message:response?.data,variant:"success"})
 
       }).catch((error)=>{
-        console.log('error.data : ',error.response.data)
     
         setAlert({message:error?.response?.data,variant:"info"})
         setTimeout(() => {
@@ -32,10 +32,8 @@ function Reset() {
   },[recoveryToken,navigate])
 
   const onSubmit = (data)=>{
-
-    const {password,confirm_password} = data;
-
-    if(password !== confirm_password) return setAlert({message:"password doesen't match ",variant:"success"})
+  
+    const {password} = data;
 
     const Data = {password,token:recoveryToken};
 
@@ -61,39 +59,49 @@ function Reset() {
 
   }
 
-//Dinesh Mama : 7983014400
+  console.log('Errors : ',errors);
+
   return (
-    <div style={{display:'flex',justifyContent:'center',marginTop:'200px'}}>
+    <div style={{display:'flex',justifyContent:'center'}}>
       {alert?.message&&<Alerting alert={alert}/>}
       <div>
 
-        <div>
+        <ITEM width='500px' justifyContent='center' marginTop='150px'>
+          <div style={{height:'1px'}} ></div>
+          <div style={{marginLeft:'150px',minHeight:'300px',height:'auto'}}>
+            <div style={{marginTop:'80px'}}>
 
-          <div>
+              <h3>
+                <strong>Enter new password</strong>
+              </h3>
 
-            <span>
-              Enter new password
-            </span>
-
-          </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-
-            <div >
-              <div>
-                <Input {...register('password',{required:true})} type='password' placeholder='new password' />
-              </div>
-              <div>
-                <Input {...register('confirm_password',{required:true})} type='password' placeholder='repeat password' />
-              </div>
-              <div>
-                <Button type='submit'>Reset</Button>
-              </div>
             </div>
 
-          </form>
+            <form onSubmit={handleSubmit(onSubmit)}>
 
-        </div>
+              <div style={{marginTop:'10px'}}>
+                <div>
+                  <Input {...register('password',{required:'Password is required' , pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                    message:
+                      'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character',
+                    }})} 
+                    type='password' placeholder='new password' 
+                  /><br/>
+                  {errors.password&&<span style={{color:'red',fontSize:'12px'}}>{errors.password.message}</span>}
+                </div>
+                <div style={{marginTop:'10px'}}>
+                  <Input {...register('confirm_password',{required:'Please Re-Enter password' , validate: value => value === watch('password') || "Passwords don't match"})} type='password' placeholder='repeat password' /><br/>
+                  {errors.confirm_password&&<span style={{color:'red',fontSize:'12px'}}>{errors.confirm_password.message}</span>}
+                </div>
+                <div style={{marginTop:'10px'}}>
+                  <Button type='submit' variant="contained">Reset</Button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </ITEM>
 
       </div>
     </div>

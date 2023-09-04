@@ -21,27 +21,39 @@ function StudentProfile() {
   const {state} = useLocation()
   const [{apiData}] = useFetch(`studentprofile/${state?.Id}`,{skip:!state?.Id})
 
-console.log('apiData : ',apiData);
   return (
-    <div style={{marginTop:'20px',width:'auto',overflow: 'auto'}}>
-        <Accordion style={{width:'1100px'}}>
+    <div style={{marginTop:'20px',width:'100%',overflow: 'auto'}}>
+        <Accordion>
           
           <AccordionDetails>
-            <div style={{display:'flex'}}>
-              <Typography>
-                <Image Image={apiData?.profile} width='50px' />
-              </Typography>
-              <Typography style={{marginTop:'10px',marginLeft:'50px'}}>
-                I am <strong>{apiData?.firstName + ' ' + apiData?.lastName}</strong>
-              </Typography>
-              <Typography style={{marginTop:'10px',marginLeft:'50px'}}>
-                <strong>E-mail : </strong> {apiData?.email}
-              </Typography>
-              <Typography style={{marginLeft:'330px',marginTop:'10px'}}>
-                <Button variant="contained" size='small' onClick={()=>navigate('/admin/StudentResult',{state:{id:apiData?._id,Semester:apiData?.Semester}})}>
-                  See Result
-                </Button>
-              </Typography>
+            <div style={{display:'flex',justifyContent: 'space-between'}}>
+              <div style={{display:'flex'}}>
+                <Typography>
+                  <Image Image={apiData?.profile} width='50px' />
+                </Typography>
+                <Typography style={{marginTop:'10px',marginLeft:'50px'}}>
+                  I am <strong>{apiData?.firstName + ' ' + apiData?.lastName}</strong>
+                </Typography>
+                <Typography style={{marginTop:'10px',marginLeft:'50px'}}>
+                  <strong>E-mail : </strong> {apiData?.email}
+                </Typography>
+
+                  {apiData?.DOB&&<Typography style={{marginTop:'10px',marginLeft:'50px'}}>
+                  <strong>D.O.B : </strong>{apiData?.DOB?.split('T0')[0]}
+                  </Typography>}
+              
+                  {apiData?.Gender&&<Typography style={{marginTop:'10px',marginLeft:'50px'}}>  
+                  <strong>Gender : </strong>{apiData?.Gender}
+                  </Typography>}
+              
+              </div>
+              <div>
+                <Typography style={{float:'right',marginTop:'10px'}}>
+                  <Button variant="contained" size='small' onClick={()=>navigate('/admin/StudentResult',{state:{id:apiData?._id,Semester:apiData?.Semester}})}>
+                    See Result
+                  </Button>
+                </Typography>
+              </div>
             </div>
           </AccordionDetails>
         
@@ -56,16 +68,14 @@ console.log('apiData : ',apiData);
           >
             
             <Typography>
-              <strong>Student Basic Information</strong>
+              <strong>Institution Information</strong>
             </Typography>
         
           </AccordionSummary>
         
           <AccordionDetails>
-            <div style={{display:'flex'}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gridTemplateRows:'1fr 1fr'}}>
               
-              <div>
-
                 <Typography>
                   Department : {apiData?.department}
                 </Typography>
@@ -74,20 +84,18 @@ console.log('apiData : ',apiData);
                   Roll Number : {apiData?.Roll_Number}
                 </Typography>
             
-              </div>
-
-              <div style={{marginLeft:'80px'}}>
-
                 <Typography>
                   Registration Number : {apiData?.Registration_Number}
+                </Typography>
+
+                <Typography>
+                  Registration Year : {apiData?.Registration_Year}
                 </Typography>
 
                 <Typography>
                   Semester : {apiData?.Semester}
                 </Typography>
 
-              </div>
-            
             </div>
           </AccordionDetails>
         

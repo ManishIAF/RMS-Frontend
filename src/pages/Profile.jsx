@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect,useState} from 'react'
 import { useForm} from "react-hook-form";
 import axios from 'axios'
 import Image from '../components/Image';
@@ -26,9 +26,18 @@ function Profile() {
   const [{apiData},,setParams] = useFetch('profile');
   const [edit,setEdit] = useState(false)
   const [alert,setAlert] = useState({});
-  const {register, handleSubmit/*, formState: { errors }*/} = useForm()
+  const {register, handleSubmit,setValue,formState: { errors }} = useForm()
 
-  console.log('apiData : ',apiData)
+  useEffect(() => {
+    if (apiData?.contact) {
+      setValue('Street', apiData.contact.address.Street);
+      setValue('City', apiData.contact.address.City);
+      setValue('State', apiData.contact.address.State);
+      setValue('pinCode', apiData.contact.address.pinCode);
+      setValue('District', apiData.contact.address.District);
+      setValue('Mobile', apiData.contact.Mobile);
+    }
+  }, [apiData,setValue]);
 
   const onSubmit = (data,event) => {
 
@@ -49,7 +58,6 @@ function Profile() {
     }
 
     const token = localStorage.getItem('token');
-
     axios.post('/api/profile',
       Data,
       {
@@ -168,8 +176,14 @@ const onUpload = async e =>{
               <Typography style={{marginTop:'20px',marginLeft:'50px'}}>
                 <strong>E-mail : </strong> {apiData?.email}
               </Typography>
+                <Typography style={{marginTop:'20px',marginLeft:'50px'}}>
+                  <strong>D.O.B : </strong>{apiData?.DOB?.split('T0')[0]}
+                </Typography>
+                <Typography style={{marginTop:'20px',marginLeft:'50px'}}>  
+                  <strong>Gender : </strong>{apiData?.Gender}
+                </Typography>
               
-              {file&&<Button type='submit' onClick={onEdit} style={{marginTop:'15px',marginLeft:'500px',height:'30px'}} variant="contained">Change</Button>}
+              {file&&<Button type='submit' onClick={(event)=>onEdit({},event)} style={{marginTop:'15px',marginLeft:'50px',height:'30px'}} variant="contained">Change</Button>}
               
             </div>
             
@@ -192,10 +206,8 @@ const onUpload = async e =>{
           </AccordionSummary>
         
           <AccordionDetails>
-            <div style={{display:'flex'}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gridTemplateRows:'1fr 1fr'}}>
               
-              <div>
-
                 <Typography>
                   Department : {apiData?.department}
                 </Typography>
@@ -204,20 +216,18 @@ const onUpload = async e =>{
                   Roll Number : {apiData?.Roll_Number}
                 </Typography>}
             
-              </div>
-
-              <div style={{marginLeft:'80px'}}>
-
                 {apiData?.Registration_Number&&<Typography>
                   Registration Number : {apiData?.Registration_Number}
+                </Typography>}
+
+                {apiData?.Registration_Year&&<Typography>
+                  Registration Year : {apiData?.Registration_Year}
                 </Typography>}
 
                 {apiData?.Semester&&<Typography>
                   Semester : {apiData?.Semester}
                 </Typography>}
 
-              </div>
-            
             </div>
           </AccordionDetails>
         
@@ -243,21 +253,39 @@ const onUpload = async e =>{
               <div>
 
                   <div>
-                  {!apiData?.contact||edit?<form>
+                  {(!apiData?.contact||edit)?<form>
                       
                       <div>
                         
                         <div style={{display:'flex'}}>
-                          <TextField type='text' style={{width:'795px'}} {...register('Street',{required:true,maxLength:100})} id="standard-basic" defaultValue={apiData?.contect?.address?.Street} label="Street" variant="standard" />
-                          <TextField type='text' style={{marginLeft:'30px'}} {...register('City',{required:true,maxLength:50})} defaultValue={apiData?.contect?.address?.City} id="standard-basic" label="City" variant="standard" />
+                          <div>
+                            <TextField type='text' style={{width:'795px'}} {...register('Street',{required:'Please enter street and house number'})} id="standard-basic" label="Street/House Number" variant="standard" /><br/>
+                            {errors.Street&&<span style={{fontSize:'12px',color:'red'}}>{errors.Street.message}</span>}
+                          </div>
+                          <div style={{marginLeft:'30px'}}>
+                            <TextField type='text' {...register('City',{required:'Enter your city'})} id="standard-basic" label="City" variant="standard" /><br/>
+                            {errors.City&&<span style={{fontSize:'12px',color:'red'}}>{errors.City.message}</span>}
+                          </div>
                         </div>
 
                         <div style={{display:'flex',marginTop:'20px'}}>
+                          <div>
+                            <TextField type='text' id="standard-basic" {...register('State',{required:'Enter State name'})} label="State" variant="standard" /><br/>
+                            {errors.State&&<span style={{fontSize:'12px',color:'red'}}>{errors.State.message}</span>}
+                          </div>  
+                          <div style={{marginLeft:'30px'}}>
+                            <TextField type='number' {...register('pinCode',{required:'Pin number is required'})} id="standard-basic" label="Pin Code" variant="standard" /><br/>
+                            {errors.pinCode&&<span style={{fontSize:'12px',color:'red'}}>{errors.pinCode.message}</span>}
+                          </div>
+                          <div style={{marginLeft:'30px'}}>
+                            <TextField type='text' {...register('District',{required:'District name is required'})} id="standard-basic" label="District" variant="standard" /><br/>
+                            {errors.District&&<span style={{fontSize:'12px',color:'red'}}>{errors.District.message}</span>}
+                          </div>                  
+                          <div style={{marginLeft:'30px'}}>
+                            <TextField type='number' {...register('Mobile',{required:'Mobile name is required'})} id="standard-basic" label="Mobile Number" variant="standard" /><br/>
+                            {errors.Mobile&&<span style={{fontSize:'12px',color:'red'}}>{errors.Mobile.message}</span>}
+                          </div> 
 
-                            <TextField type='text' id="standard-basic" {...register('State',{required:true,maxLength:50})} defaultValue={apiData?.contect?.address?.State} label="State" variant="standard" />
-                            <TextField type='number' style={{marginLeft:'30px'}} {...register('pinCode',{required:true,maxLength:6})} defaultValue={apiData?.contect?.address?.pinCode} id="standard-basic" label="Pin Code" variant="standard" />
-                            <TextField type='text' style={{marginLeft:'30px'}} {...register('District',{required:true,maxLength:50})} defaultValue={apiData?.contect?.address?.District} id="standard-basic" label="District" variant="standard" />
-                            <TextField type='number' style={{marginLeft:'30px'}} {...register('Mobile',{required:true,maxLength:10})} id="standard-basic" defaultValue={apiData?.contect?.Mobile} label="Phone Number" variant="standard" />
                             {!apiData?.contact&&<Button type='submit' onClick={handleSubmit(onSubmit)} style={{marginLeft:'30px',marginTop:'10px'}} variant="contained">Add Info</Button>}
                             {apiData?.contact&&<Button type='submit' onClick={handleSubmit(onEdit)} style={{marginLeft:'30px',marginTop:'10px'}} variant="contained">Edit Info</Button>}
 

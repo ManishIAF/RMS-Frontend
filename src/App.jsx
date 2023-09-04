@@ -1,6 +1,5 @@
-// import 'dotenv/config'
 import React from 'react'
-import {BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 
 /** Import All Component **/
 
@@ -15,7 +14,6 @@ import Home from './pages/Home'
 import EditResult from './pages/EditResult'
 import AddResult from './pages/AddResult'
 import Students from './pages/Students';
-// import IndividualResult from './pages/IndividualResult'
 import AddStudent from './pages/AddStudent';
 import AddProfessor from './pages/AddProfessor';
 import StudentProfile from './pages/StudentProfile';
@@ -23,7 +21,6 @@ import ProfessorList from './pages/ProfessorList';
 import QRCODE from './pages/QRCode';
 import PasswordReset from './pages/PasswordReset';
 import StudentResult from './pages/StudentResult'
-
 import List from './components/List'
 
 const App = ()=>{
@@ -39,7 +36,8 @@ const App = ()=>{
                 
                 <Route path='admin' element={<AuthorizedRoute><SharedLayOut/></AuthorizedRoute>}>
 
-                 <Route index element={<Home/>} />
+                 <Route index='/' element={<Home/>} />
+
                  <Route path='StudentResult' element={<StudentResult/>} />
                   
                  <Route path='professorList' element={<ProfessorList/>} />

@@ -17,18 +17,18 @@ function Navbar({apiData}) {
     const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-      };
+      setAnchorElUser(event.currentTarget);
+    };
 
-      const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-      };
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
 
     const handleLogOut = ()=>{
 
         
-        localStorage.removeItem('token');
-        Navigate('/')
+      localStorage.removeItem('token');
+      Navigate('/')
 
     }
 

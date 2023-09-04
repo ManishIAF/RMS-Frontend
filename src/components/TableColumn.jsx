@@ -5,7 +5,7 @@ const TableColumn = ({columnData}) => {
 
 
   return (
-      <thead className='TableHeader'>
+      <thead>
     
         <tr>
             {columnData?.map((datum,index)=>(

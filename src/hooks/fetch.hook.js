@@ -2,8 +2,6 @@ import axios from "axios";
 import { useEffect,useState } from "react";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
-axios.defaults.withCredentials = true
-/*custom hook */
 
 const useFetch = (query,options={}) => {
 
@@ -27,11 +25,11 @@ const useFetch = (query,options={}) => {
                 
                 const {data,status} = await axios.get(`/api/${query}`,{
                     params:Params,
-                    "Content-Type":"application/json",
-                    withCredentials:true,
-                    headers:{
-                       "Authorization" : `Bearer ${token}`
-                   },
+                    withCredentials: true,
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    },
 
                 });
                    

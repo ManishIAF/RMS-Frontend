@@ -56,18 +56,18 @@ function Students() {
   },[selectedSemester,setParams,Params.semester]);
 
   return (
-    <div style={{width:'100%',marginTop:'20px'}}>     
+    <div style={{width:'100%'}}>     
      {alert?.message&&<Alert alert={alert}/>}
       {openConfirmation?.userId&&
         <Confirm setConfirmation={setConfirmation} openConfirmation={openConfirmation} handleUserDelete={handleUserDelete} />
       }
-      {apiData?.studentData && <div style={{width:'100%',height:'7%'}}>
+      {apiData?.studentData && <div style={{width:'100%',height:'60px' }}>
 
-        <div style={{float:'left'}}>
+        <div style={{float:'left',marginTop:'10px'}}>
           <SearchBar SearchFunction={SearchFunction1}/>
         </div> 
         
-        <div style={{float:"right"}}>
+        <div style={{float:"right",marginTop:'10px'}}>
 
           <Select options = {[
             
@@ -84,25 +84,26 @@ function Students() {
 
         />
 
-      </div></div>}<br/>
+      </div></div>}
+      <div style={{marginTop:'5px',width:'100%',justifyContent:'center'}}>
+        <div className='rapper'>
+          {apiData?apiData?.studentData?.map(
 
-      <div className='rapper'>
-        {apiData?apiData?.studentData?.map(
+            (eachStudentData)=>{
 
-          (eachStudentData)=>{
-
-            return( 
+              return( 
+                
+                <div key={eachStudentData._id}>
+                  <Card setConfirmation={setConfirmation} Autherization={apiData?.auth} datum={eachStudentData}/>
+                </div>
+                
+                      
+              )
               
-              <div key={eachStudentData._id}>
-                <Card setConfirmation={setConfirmation} Autherization={apiData?.auth} datum={eachStudentData}/>
-              </div>
-              
-                    
-            )
-            
-          }
+            }
 
-        ):<CircularProgress style={{marginTop:'200px',marginLeft:'500px'}} color="success" />}
+          ):<CircularProgress style={{marginTop:'200px',marginLeft:'500px'}} color="success" />}
+        </div>
       </div>
     </div>
   )
