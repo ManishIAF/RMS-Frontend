@@ -67,9 +67,19 @@ function Login() {
 
       if(response?.status === 200){
         localStorage.setItem('token', response?.data?.token);
+        
         setAlert({message:response?.data.msg,variant:"success"})        
+        
         setTimeout(() => {
-          navigate('/admin', {replace:true});
+          
+          if(response?.data?.auth === 'moderate'||response?.data?.auth === 'high'){
+            navigate('/admin', {replace:true});
+          }
+          
+          if(response?.data?.auth === 'standard'){
+            navigate('/student', {replace:true});
+          }
+          
         }, 1000);
       }
 

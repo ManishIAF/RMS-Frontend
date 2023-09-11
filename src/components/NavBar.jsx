@@ -68,7 +68,7 @@ function Navbar({apiData}) {
                 </Typography>
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>
-                <Typography style={{display:'flex'}} onClick={()=>Navigate('/admin/profile')} textAlign="center"> 
+                <Typography style={{display:'flex'}} onClick={()=>Navigate((apiData?.auth === 'standard')?'/student/profile':'/admin/profile')} textAlign="center"> 
                   <PermIdentityOutlinedIcon style={{color:'blue',marginRight:'2px',fontSize:'20px'}} />Profile
                 </Typography>
             </MenuItem>

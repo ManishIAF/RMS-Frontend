@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect,useState } from "react";
 
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
+axios.defaults.baseURL = 'https://c1f0-2405-201-801e-b056-c0ab-9301-ce8e-ba4a.ngrok-free.app' /*process.env.REACT_APP_SERVER_DOMAIN*/;
 
 const useFetch = (query,options={}) => {
 
@@ -27,8 +27,8 @@ const useFetch = (query,options={}) => {
                     params:Params,
                     withCredentials: true,
                     headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
                     },
 
                 });

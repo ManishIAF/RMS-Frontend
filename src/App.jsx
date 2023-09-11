@@ -60,8 +60,15 @@ const App = ()=>{
                   <Route path='addResult' element={<AddResult/>} />
                   <Route path='list' element={<List/>} />
                   <Route path='editResult' element={<EditResult/>} />
-                  <Route path='result' element={<StudentResult/>}/>
+                  {/* <Route path='result' element={<StudentResult/>}/> */}
                   <Route path='403' element={<PageNotFound/>}/>
+                </Route>
+                
+                <Route path='student' element={<AuthorizedRoute><SharedLayOut/></AuthorizedRoute>}>
+                    
+                    <Route index='/' element={<StudentResult/>}/>
+                    <Route path='profile' element={<Profile/>} />
+
                 </Route>
                 
                 <Route path='*' element={<PageNotFound/>}/>

@@ -61,7 +61,7 @@ const routes = [
     },
 
     {
-        path : '/admin/result',
+        path : '/student',
         name : 'Result',
         accessLevel: ['standard'],
         show:'sidebar',

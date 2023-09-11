@@ -24,8 +24,8 @@ const AuthorizedRoute = ({children})=>{
                 const {data,status} = await axios.get('/api/authenticate',{
                     withCredentials: true,
                     headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
                     },
                 })
 
@@ -40,7 +40,7 @@ const AuthorizedRoute = ({children})=>{
                             const al = routes?.find(({path,accessLevel})=>{return path === currentRoute && accessLevel})
                             
                             if(al){
-                                console.log('here');
+
                                 if(al?.accessLevel?.includes(data?.auth)){
 
                                     setAutherization(data)
@@ -54,17 +54,15 @@ const AuthorizedRoute = ({children})=>{
                                 }
                      
                             }
+
                             if(!al){
-                                if(!al?.accessLevel?.includes(data?.auth)&&data?.auth === 'standard'){
-                                    console.log('data?.auth : ',data?.auth)
+
+                                if(!al?.accessLevel?.includes(data?.auth)){
+                               
                                     setAutherization(data)
-                                    return navigate('/admin/result', { replace: true });
                                 
                                 }
-                                console.log('or here');
-                                setAutherization(data)
                             }
-                            setAutherization(data)
                         }
                     }
                 }              
